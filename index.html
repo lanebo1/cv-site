@@ -66,6 +66,33 @@
             </div>
         </section>
 
+        <!-- Achievements -->
+        <section class="section" aria-labelledby="achievements-heading">
+            <div class="section-card">
+                <h2 id="achievements-heading" class="section-title">Достижения</h2>
+                <div class="achievements-gallery">
+                    <!-- Achievement 1 -->
+                    <div class="achievement-item">
+                        <img src="achv/techarena.jpg" alt="TechArena Achievement" class="achievement-img" onclick="openModal(this)">
+                        <div class="achievement-content">
+                            <h3 class="achievement-title">TECHARENA INNOPOLIS 2025</h3>
+                            <p class="achievement-desc">2-е место</p>
+                        </div>
+                    </div>
+
+                    <!-- Achievement 2 -->
+                    <div class="achievement-item">
+                        <img src="achv/mtshack.png" alt="MTS Hack Achievement" class="achievement-img" onclick="openModal(this)">
+                        <div class="achievement-content">
+                            <h3 class="achievement-title">MTC Engineer Hack</h3>
+                            <p class="achievement-desc">Финалист</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- Technical Skills -->
         <section class="section" aria-labelledby="skills-heading">
             <div class="section-card">
@@ -162,7 +189,7 @@
         <!-- Soft Skills -->
         <section class="section" aria-labelledby="soft-skills-heading">
             <div class="section-card">
-                <h2 id="soft-skills-heading" class="section-title">Мягкие навыки</h2>
+                <h2 id="soft-skills-heading" class="section-title">Софт скиллы</h2>
                 <div class="soft-skills-grid">
                     <article class="soft-skill-card">
                         <h3 class="soft-skill-title">Сотрудничество и Командная работа</h3>
@@ -382,6 +409,13 @@
             </div>
         </section>
     </main>
+
+    <!-- Achievement Modal -->
+    <div id="achievement-modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div id="modal-caption" class="modal-caption"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

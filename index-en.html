@@ -66,6 +66,33 @@
             </div>
         </section>
 
+        <!-- Achievements -->
+        <section class="section" aria-labelledby="achievements-heading">
+            <div class="section-card">
+                <h2 id="achievements-heading" class="section-title">Achievements</h2>
+                <div class="achievements-gallery">
+                    <!-- Achievement 1 -->
+                    <div class="achievement-item">
+                        <img src="achv/techarena.jpg" alt="TechArena Achievement" class="achievement-img" onclick="openModal(this)">
+                        <div class="achievement-content">
+                            <h3 class="achievement-title">TECHARENA INNOPOLIS 2025</h3>
+                            <p class="achievement-desc">2nd place</p>
+                        </div>
+                    </div>
+
+                    <!-- Achievement 2 -->
+                    <div class="achievement-item">
+                        <img src="achv/mtshack.png" alt="MTS Hack Achievement" class="achievement-img" onclick="openModal(this)">
+                        <div class="achievement-content">
+                            <h3 class="achievement-title">MTC Engineer Hack</h3>
+                            <p class="achievement-desc">Went to the finals</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <!-- Technical Skills -->
         <section class="section" aria-labelledby="skills-heading">
             <div class="section-card">
@@ -382,6 +409,13 @@
             </div>
         </section>
     </main>
+
+    <!-- Achievement Modal -->
+    <div id="achievement-modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div id="modal-caption" class="modal-caption"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
