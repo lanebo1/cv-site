@@ -12,8 +12,8 @@
     --text-muted: #9AA0A6;      /* Light gray for muted text */
 
     /* Accent colors - subtle gray variations */
-    --accent-color: #3C4043;    /* Dark gray accent instead of blue */
-    --accent-hover: #5F6368;    /* Lighter gray for hover states */
+    --accent-color: #2563EB;    /* Calm blue accent for links and key details */
+    --accent-hover: #1D4ED8;    /* Stronger accent for hover states */
 
     /* Border colors */
     --border-color: #DADCE0;    /* Light gray borders */
@@ -34,7 +34,7 @@
 
     /* Layout */
     --container-max-width: 1200px;
-    --border-radius: 12px;
+    --border-radius: 8px;
     --border-radius-sm: 8px;
     --transition: all 0.3s ease;
 }
@@ -63,7 +63,7 @@ body {
 /* Header Section */
 .header {
     background: var(--secondary-bg);
-    padding: 40px 0;
+    padding: 36px 0;
     border-bottom: 1px solid #B8B8B8;
     margin-bottom: 40px;
 }
@@ -105,10 +105,11 @@ body {
 }
 
 .contact-info {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, max-content));
     gap: 8px;
     margin-top: 15px;
+    font-style: normal;
 }
 
 .contact-item {
@@ -117,6 +118,18 @@ body {
     gap: 8px;
     font-size: 14px;
     color: var(--text-secondary);
+    text-decoration: none;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
 }
 
 .contact-item svg {
@@ -157,19 +170,17 @@ body {
 }
 
 .section-card {
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    padding: 30px;
-    box-shadow: 0 2px 15px var(--shadow);
-    border: 1px solid var(--border-color);
+    padding: 0;
 }
 
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
 
 .section-subtitle {
     font-size: 18px;
@@ -287,14 +298,14 @@ body {
     border-radius: var(--border-radius);
     padding: 25px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 2px 15px var(--shadow);
+    box-shadow: 0 1px 8px var(--shadow);
     transition: var(--transition);
 }
 
 .project-card:hover {
     background: var(--card-hover-bg);
     border-color: var(--border-hover);
-    box-shadow: 0 4px 20px var(--shadow-hover);
+    box-shadow: 0 3px 16px var(--shadow-hover);
 }
 
         .project-title {
@@ -328,12 +339,14 @@ body {
             margin-bottom: 8px;
         }
 
-        .project-role {
-            color: #6B7280; /* Светлее серый для хорошей видимости */
-            font-weight: 500;
-            font-size: 1em;
-            margin-left: 4px; /* Отступ от заголовка */
-        }
+.project-role {
+    display: block;
+    color: #6B7280; /* Светлее серый для хорошей видимости */
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 4px;
+    line-height: 1.35;
+}
 
         .project-desc {
             font-size: 15px;
@@ -399,6 +412,10 @@ body {
         gap: 20px;
     }
 
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
     .name {
         font-size: 28px;
     }
@@ -407,10 +424,6 @@ body {
         width: 100px;
         height: 100px;
         font-size: 40px;
-    }
-
-    .section-card {
-        padding: 20px;
     }
 
     .section-title {
@@ -445,10 +458,6 @@ body {
         font-size: 32px;
     }
 
-    .section-card {
-        padding: 15px;
-    }
-
     .project-card {
         padding: 20px;
     }
@@ -479,13 +488,14 @@ body {
 .achievement-img {
     width: 100%;
     height: 280px; /* A4 aspect ratio (1:1.414) - approximately 200px width would be ~283px height */
-    object-fit: cover;
+    object-fit: contain;
+    background: #F8F9FA;
     display: block;
     transition: var(--transition);
 }
 
 .achievement-item:hover .achievement-img {
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 .achievement-content {
