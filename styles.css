@@ -97,6 +97,13 @@ body {
     color: #1F2937;
 }
 
+.role-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
 .contact-info {
     display: flex;
     flex-direction: column;
