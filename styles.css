@@ -138,6 +138,47 @@ a:hover {
     fill: currentColor;
 }
 
+.header-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: #ffffff;
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+    text-decoration: none;
+    border: 1px solid var(--accent-color);
+}
+
+.btn:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent-color);
+}
+
+.btn-outline:hover {
+    background: rgba(37, 99, 235, 0.05);
+    color: var(--accent-hover);
+}
+
 .language-switcher {
     position: absolute;
     top: 40px;
