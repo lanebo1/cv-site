@@ -515,11 +515,6 @@ a:hover {
     transition: var(--transition);
 }
 
-.project-card .achievement-img {
-    max-width: 280px;
-    margin-top: 0.75rem;
-}
-
 .achievement-item:hover .achievement-img {
     transform: scale(1.01);
 }
