@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Efimovich Kirill - Computer Science student specializing in DevOps, backend development, and infrastructure automation.">
-    <meta name="keywords" content="DevOps, Computer Science, Go, Docker, Kubernetes, Terraform, Python, Linux, Ubuntu">
+    <meta name="description" content="Kirill Efimovich — DevOps / Infrastructure Engineer with 2+ years of experience in Linux, Docker, CI/CD, observability, and backend development.">
+    <meta name="keywords" content="DevOps, Infrastructure Engineer, Linux, Docker, Kubernetes, Yandex Cloud, CI/CD, PostgreSQL, NGINX, Prometheus, Grafana, TypeScript">
     <meta name="author" content="Efimovich Kirill">
-    <title>Efimovich Kirill - DevOps Engineer Portfolio</title>
+    <title>Kirill Efimovich — DevOps / Infrastructure Engineer</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563EB'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='white'%3EKE%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,12 +17,12 @@
             <div class="header-content">
                 <img src="profile.jpeg" alt="Efimovich Kirill" class="profile-photo">
                 <div class="header-text">
-                    <h1 class="name">Efimovich Kirill</h1>
-                    <p class="role-title">Junior DevOps Engineer</p>
+                    <h1 class="name">Kirill Efimovich</h1>
+                    <p class="role-title">DevOps / Infrastructure Engineer</p>
                     <div class="header-actions">
-                        <a href="resume/EN%20Public%20Resume%20Kirill%20Efimovich.pdf" class="btn" download="Kirill-Efimovich-Public-Resume-EN.pdf">
+                        <a href="ACT%20RU%20Public%20%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%D0%95%D1%84%D0%B8%D0%BC%D0%BE%D0%B2%D0%B8%D1%87%20%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%D0%BB%20.pdf" class="btn" download="Kirill-Efimovich-DevOps-CV-RU.pdf">
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                            Download Resume
+                            Download CV (RU)
                         </a>
                         <a href="mailto:kirillefimovic141@gmail.com" class="btn btn-outline">
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -66,9 +66,14 @@
             <div class="section-card">
                 <h2 id="summary-heading" class="section-title">Professional Summary</h2>
                 <p class="summary-text">
-                    DevOps engineer with 2+ years of experience in CI/CD automation, container deployments, and monitoring of web and server systems. Full-time DevOps intern at <a href="https://en.wikipedia.org/wiki/VK_(service)" target="_blank" rel="noopener noreferrer">VK</a>, working with Docker, GitLab CI/CD, Kubernetes, Kotlin DSL, and the Prometheus, Loki, and Grafana stack. I have led technical coordination for teams of 5–7 people, built CI/CD pipelines, and kept self-hosted runners and Docker-based infrastructure running for academic projects and hackathons. I learn new technologies quickly, focus on reliable automated solutions, and am interested in integrating AI into my services.
+                    DevOps / Infrastructure Engineer with 2+ years of experience in CI/CD automation, containerized deployments, and observability for web and server systems. I have operated production infrastructure with Docker and Kubernetes, deployed projects in Yandex Cloud, and maintained self-hosted services on Linux: GitHub Actions runners, NGINX reverse proxy with TLS, blue-green deployments, and fast rollback. I diagnose incidents using logs and metrics and can read and improve backend code in TypeScript, Python, Java, and Go. I use AI tools and coding agents in daily engineering work, while validating their output, and quickly get up to speed in unfamiliar systems.
                 </p>
-                
+                <h3 class="section-subtitle">Infrastructure highlights</h3>
+                <ul class="summary-bullets">
+                    <li><strong>Yandex Cloud:</strong> deployed Elect.Gen and Distributed Log Analysis Framework through automated CI/CD pipelines.</li>
+                    <li><strong>Linux & Docker:</strong> operated self-hosted runners, NGINX with TLS, Docker Compose services, and blue-green releases behind HAProxy.</li>
+                    <li><strong>Production & backend:</strong> investigated incidents using logs and metrics and worked with PostgreSQL, Redis, REST APIs, and backend code.</li>
+                </ul>
             </div>
         </section>
 
@@ -90,7 +95,7 @@
                     <div class="achievement-item">
                         <img src="achv/mtshack.png" alt="MTS Hack Achievement" class="achievement-img" onclick="openModal(this)">
                         <div class="achievement-content">
-                            <h3 class="achievement-title">MTC Engineer Hack</h3>
+                            <h3 class="achievement-title">MTS Engineering Hack 2025</h3>
                             <p class="achievement-desc">Finalist, DevOps track</p>
                         </div>
                     </div>
@@ -132,6 +137,7 @@
                     </div>
 
                 </div>
+                <p class="achievement-summary"><strong>Hackathons:</strong> TechArena Innopolis 2025 — 2nd place; MTS Engineering Hack 2025 — DevOps track finalist; MTS True Tech Hack 2026 — “Best Solution” winner; AdventureX 2026 Hackathon (China) — 5th place.</p>
             </div>
         </section>
 
@@ -141,110 +147,81 @@
                 <h2 id="skills-heading" class="section-title">Technical Skills</h2>
                 <div class="skills-grid">
                     <div class="skill-category">
-                        <h3 class="section-subtitle">Languages</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">Go</span>
-                            <span class="skill-tag" role="listitem">Python</span>
-                            <span class="skill-tag" role="listitem">Java</span>
-                            <span class="skill-tag" role="listitem">Kotlin DSL</span>
-                            <span class="skill-tag" role="listitem">JavaScript</span>
-                            <span class="skill-tag" role="listitem">TypeScript</span>
-                            <span class="skill-tag" role="listitem">WebAssembly</span>
-                            <span class="skill-tag" role="listitem">Haskell</span>
-                            <span class="skill-tag" role="listitem">Arduino</span>
-                            <span class="skill-tag" role="listitem">C/C++</span>
-                            <span class="skill-tag" role="listitem">Bash</span>
-                            <span class="skill-tag" role="listitem">Flutter/Dart</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="section-subtitle">Backend & Frameworks</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">FastAPI</span>
-                            <span class="skill-tag" role="listitem">Spring / Spring Boot</span>
-                            <span class="skill-tag" role="listitem">Django</span>
-                            <span class="skill-tag" role="listitem">Tailwind CSS</span>
-                            <span class="skill-tag" role="listitem">SQLAlchemy</span>
-                            <span class="skill-tag" role="listitem">Flutter</span>
-                            <span class="skill-tag" role="listitem">Telegram Bots</span>
-                            <span class="skill-tag" role="listitem">Discord Bots</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
                         <h3 class="section-subtitle">DevOps & Infrastructure</h3>
                         <div class="skill-tags" role="list">
+                            <span class="skill-tag" role="listitem">Linux administration</span>
                             <span class="skill-tag" role="listitem">Docker</span>
                             <span class="skill-tag" role="listitem">Docker Compose</span>
-                            <span class="skill-tag" role="listitem">Ansible</span>
                             <span class="skill-tag" role="listitem">Kubernetes</span>
-                            <span class="skill-tag" role="listitem">Terraform</span>
                             <span class="skill-tag" role="listitem">NGINX</span>
                             <span class="skill-tag" role="listitem">HAProxy</span>
                             <span class="skill-tag" role="listitem">Caddy</span>
-                            <span class="skill-tag" role="listitem">ngrok</span>
-                            <span class="skill-tag" role="listitem">Prometheus</span>
-                            <span class="skill-tag" role="listitem">Loki</span>
-                            <span class="skill-tag" role="listitem">Grafana</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="section-subtitle">Databases & Cloud</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">PostgreSQL</span>
-                            <span class="skill-tag" role="listitem">MongoDB</span>
-                            <span class="skill-tag" role="listitem">SQLite</span>
-                            <span class="skill-tag" role="listitem">MinIO</span>
-                            <span class="skill-tag" role="listitem">AWS</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="section-subtitle">Want to learn</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">Kubernetes</span>
-                            <span class="skill-tag" role="listitem">Terraform</span>
                             <span class="skill-tag" role="listitem">Ansible</span>
-                            <span class="skill-tag" role="listitem">Redis</span>
-                            <span class="skill-tag" role="listitem">Jenkins</span>
-                            <span class="skill-tag" role="listitem">Nix</span>
+                            <span class="skill-tag" role="listitem">Yandex Cloud</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="section-subtitle">CI/CD & Automation</h3>
+                        <h3 class="section-subtitle">CI/CD & Release Engineering</h3>
                         <div class="skill-tags" role="list">
                             <span class="skill-tag" role="listitem">GitHub Actions</span>
-                            <span class="skill-tag" role="listitem">GitLab CI</span>
+                            <span class="skill-tag" role="listitem">GitLab CI/CD</span>
+                            <span class="skill-tag" role="listitem">Self-hosted runners</span>
                             <span class="skill-tag" role="listitem">TeamCity</span>
-                            <span class="skill-tag" role="listitem">Runner Setup</span>
-                            <span class="skill-tag" role="listitem">Infrastructure as Code</span>
-                            <span class="skill-tag" role="listitem">n8n</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="section-subtitle">Message Queues</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">RabbitMQ</span>
-                            <span class="skill-tag" role="listitem">Kafka</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="section-subtitle">Platforms & Tools</h3>
-                        <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">Linux</span>
-                            <span class="skill-tag" role="listitem">Ubuntu</span>
-                            <span class="skill-tag" role="listitem">Linux Mint</span>
+                            <span class="skill-tag" role="listitem">Kotlin DSL</span>
+                            <span class="skill-tag" role="listitem">Blue-green deployment</span>
                             <span class="skill-tag" role="listitem">Git</span>
-                            <span class="skill-tag" role="listitem">GitHub</span>
-                            <span class="skill-tag" role="listitem">GitLab</span>
-                            <span class="skill-tag" role="listitem">LaTeX</span>
-                            <span class="skill-tag" role="listitem">Markdown</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="section-subtitle">Testing & API</h3>
+                        <h3 class="section-subtitle">Observability</h3>
                         <div class="skill-tags" role="list">
-                            <span class="skill-tag" role="listitem">PyTest</span>
+                            <span class="skill-tag" role="listitem">Prometheus</span>
+                            <span class="skill-tag" role="listitem">Grafana</span>
+                            <span class="skill-tag" role="listitem">Loki</span>
+                            <span class="skill-tag" role="listitem">Logs & metrics</span>
+                            <span class="skill-tag" role="listitem">Incident diagnostics</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="section-subtitle">Databases & Object Storage</h3>
+                        <div class="skill-tags" role="list">
+                            <span class="skill-tag" role="listitem">PostgreSQL</span>
+                            <span class="skill-tag" role="listitem">Redis</span>
+                            <span class="skill-tag" role="listitem">MongoDB</span>
+                            <span class="skill-tag" role="listitem">MinIO / S3</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="section-subtitle">Networking</h3>
+                        <div class="skill-tags" role="list">
+                            <span class="skill-tag" role="listitem">DNS</span>
+                            <span class="skill-tag" role="listitem">HTTP / HTTPS</span>
+                            <span class="skill-tag" role="listitem">TLS</span>
+                            <span class="skill-tag" role="listitem">TCP/IP</span>
+                            <span class="skill-tag" role="listitem">Firewall</span>
+                            <span class="skill-tag" role="listitem">Reverse proxy</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="section-subtitle">Backend & Automation</h3>
+                        <div class="skill-tags" role="list">
+                            <span class="skill-tag" role="listitem">TypeScript</span>
+                            <span class="skill-tag" role="listitem">Go</span>
+                            <span class="skill-tag" role="listitem">Python / FastAPI</span>
+                            <span class="skill-tag" role="listitem">Java / Spring Boot</span>
+                            <span class="skill-tag" role="listitem">Bash</span>
+                            <span class="skill-tag" role="listitem">REST API</span>
                             <span class="skill-tag" role="listitem">Swagger / OpenAPI</span>
-                            <span class="skill-tag" role="listitem">Postman</span>
+                            <span class="skill-tag" role="listitem">RabbitMQ</span>
+                        </div>
+                    </div>
+                    <div class="skill-category learning-category">
+                        <h3 class="section-subtitle">Currently Exploring for Infrastructure Roles</h3>
+                        <div class="skill-tags" role="list">
+                            <span class="skill-tag learning-tag" role="listitem">Terraform</span>
+                            <span class="skill-tag learning-tag" role="listitem">Valkey</span>
+                            <span class="skill-tag learning-tag" role="listitem">LiveKit</span>
+                            <span class="skill-tag learning-tag" role="listitem">WebRTC / TURN</span>
                         </div>
                     </div>
                 </div>
@@ -269,16 +246,16 @@
                         <p class="soft-skill-desc">I present results clearly in writing and in person, with minimal jargon. I flag risks and open questions early.</p>
                     </article>
                     <article class="soft-skill-card">
-                        <h3 class="soft-skill-title">Planning & deadlines</h3>
-                        <p class="soft-skill-desc">I divide work into stages and agree on dates. If plans change, I inform the team promptly so we can adjust.</p>
+                        <h3 class="soft-skill-title">Independent troubleshooting</h3>
+                        <p class="soft-skill-desc">I trace production problems from symptoms through logs, metrics, networking, and configuration, then document the cause and the fix.</p>
                     </article>
                     <article class="soft-skill-card">
                         <h3 class="soft-skill-title">Ownership</h3>
                         <p class="soft-skill-desc">I treat CI/CD, runners, and releases seriously: reproducible steps and short documentation for colleagues.</p>
                     </article>
                     <article class="soft-skill-card">
-                        <h3 class="soft-skill-title">Learning & adaptation</h3>
-                        <p class="soft-skill-desc">I learn new technologies and processes quickly through documentation, targeted questions, and validation on small tasks before scaling up.</p>
+                        <h3 class="soft-skill-title">Learning & AI-assisted engineering</h3>
+                        <p class="soft-skill-desc">I learn unfamiliar systems through documentation and focused experiments, and use AI agents to accelerate routine work while reviewing and testing the result.</p>
                     </article>
                 </div>
             </div>
@@ -290,7 +267,7 @@
                 <h2 id="education-heading" class="section-title">Education</h2>
                 <div class="education-content">
                     <div class="education-degree">
-                        Innopolis University, third-year Software Development student, 2023-2027. GPA: 4.6.
+                        Innopolis University, fourth-year Software Development student, 2023–2027. GPA: 4.6.
                     </div>
                     <p class="summary-text">Languages: Russian (native), English (B2+).</p>
                     <h3 class="section-subtitle">Student life</h3>
@@ -323,12 +300,12 @@
         <!-- Employment -->
         <section class="section" aria-labelledby="employment-heading">
             <div class="section-card">
-                <h2 id="employment-heading" class="section-title">Employment</h2>
+                <h2 id="employment-heading" class="section-title">Professional Experience</h2>
                 <div class="projects-list">
                     <article class="project-card">
                         <header>
                             <h3 class="project-title"><a href="https://en.wikipedia.org/wiki/VK_(service)" target="_blank" rel="noopener noreferrer">VK</a><span class="project-role">DevOps Engineer</span></h3>
-                            <div class="project-timeline">November 2025 - Present</div>
+                            <div class="project-timeline">November 2025 – May 2026</div>
                             <div class="project-tech" role="list">
                                 <span class="tech-tag" role="listitem">Docker</span>
                                 <span class="tech-tag" role="listitem">GitLab CI/CD</span>
@@ -339,8 +316,7 @@
                                 <span class="tech-tag" role="listitem">Grafana</span>
                             </div>
                         </header>
-                        <p class="project-desc">
-                            I work as a full-time DevOps intern at VK (https://en.wikipedia.org/wiki/VK_(service)) on shipping and operating web and server-side systems. The aim is to create CDaaS platforms which will keep releases repeatable and environments observable so incidents are easier to trace. For my tech stack: I use Docker, GitLab CI/CD, Kubernetes, Kotlin DSL for pipelines, and Prometheus, Loki, and Grafana for monitoring and logs. I maintain CI/CD flows, help with container and cluster configuration, and support observability.
+                        <p class="project-desc">Full-time Junior DevOps Engineer. Maintained Docker- and Kubernetes-based infrastructure, GitLab CI/CD pipelines in Kotlin DSL, infrastructure configuration, and the Prometheus, Loki, and Grafana observability stack. Investigated production incidents using logs and metrics and helped keep release processes and service infrastructure stable.</p>
                     </article>
                 </div>
             </div>
@@ -466,9 +442,10 @@
                                 <span class="tech-tag" role="listitem">RabbitMQ</span>
                                 <span class="tech-tag" role="listitem">GitHub Actions</span>
                                 <span class="tech-tag" role="listitem">Self-hosted Runner</span>
+                                <span class="tech-tag" role="listitem">Yandex Cloud</span>
                             </div>
                         </header>
-                        <p class="project-desc">Framework for analyzing logs from distributed server systems. Containerized services, configured NGINX reverse proxy and RabbitMQ pipelines, MongoDB, and automated deployment to a local server via self-hosted GitHub Actions; coordinated the team.<br>Repository: <a href="https://github.com/Linch-JG/Distributed-Log-Analysis-Framework" target="_blank" rel="noopener noreferrer">github.com/Linch-JG/Distributed-Log-Analysis-Framework</a></p>
+                        <p class="project-desc">Framework for collecting and analyzing logs from distributed servers. Containerized services, configured an NGINX reverse proxy, RabbitMQ pipeline, MongoDB, and fully automated deployment in Yandex Cloud through a self-hosted GitHub Actions runner; coordinated the development team.<br>Repository: <a href="https://github.com/Linch-JG/Distributed-Log-Analysis-Framework" target="_blank" rel="noopener noreferrer">github.com/Linch-JG/Distributed-Log-Analysis-Framework</a></p>
                     </article>
 
                     <article class="project-card">
@@ -483,9 +460,10 @@
                                 <span class="tech-tag" role="listitem">Swagger</span>
                                 <span class="tech-tag" role="listitem">GitHub Actions</span>
                                 <span class="tech-tag" role="listitem">GitLab CI</span>
+                                <span class="tech-tag" role="listitem">Yandex Cloud</span>
                             </div>
                         </header>
-                        <p class="project-desc">Website for the Innopolis University Department of Education for automatically assigning students to selected electives. Developed REST API endpoints, coordinated a 5-person team, organized the code review process, and set up a CI/CD pipeline for automated testing and deployment.<br>Repository: <a href="https://github.com/quintet-sdr/elect-gen-backend" target="_blank" rel="noopener noreferrer">github.com/quintet-sdr/elect-gen-backend</a></p>
+                        <p class="project-desc">Service for automatically assigning Innopolis University students to electives. Developed a PostgreSQL-backed REST API, configured a CI/CD pipeline with automated testing and deployment to Yandex Cloud, coordinated five developers, and established the code-review process.<br>Repository: <a href="https://github.com/quintet-sdr/elect-gen-backend" target="_blank" rel="noopener noreferrer">github.com/quintet-sdr/elect-gen-backend</a></p>
                     </article>
 
                     <article class="project-card">
@@ -535,7 +513,7 @@
                                 <span class="tech-tag" role="listitem">FastAPI</span>
                             </div>
                         </header>
-                        <p class="project-desc">Built and manage home server infrastructure using Docker containers. Deployed various services including web applications, databases, and monitoring tools with automated deployment pipelines.</p>
+                        <p class="project-desc">Built and maintain self-hosted infrastructure on Linux with Docker Compose, web services, databases, and monitoring. Automated deployments, operate reverse proxies with TLS, and troubleshoot services through logs and metrics.</p>
                     </article>
 
                     <article class="project-card">

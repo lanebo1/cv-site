@@ -271,6 +271,13 @@ a:hover {
     margin-bottom: 25px;
 }
 
+.learning-category {
+    padding: 16px;
+    border: 1px dashed var(--border-hover);
+    border-radius: var(--border-radius);
+    background: #F8FAFC;
+}
+
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
@@ -293,6 +300,12 @@ a:hover {
             border-color: var(--border-hover);
             transform: translateY(-1px);
         }
+
+.learning-tag {
+    background: #EFF6FF;
+    border-color: #BFDBFE;
+    color: #1E40AF;
+}
 
 /* Soft Skills */
 .soft-skills-grid {
@@ -587,6 +600,13 @@ a:hover {
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.5;
+}
+
+.achievement-summary {
+    margin-top: 18px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
 }
 
 /* Modal Styles */
