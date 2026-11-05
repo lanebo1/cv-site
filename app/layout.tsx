@@ -21,28 +21,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#fffdf9",
 };
-
-const themeInit = `
-(function () {
-  try {
-    var t = localStorage.getItem("theme");
-    if (t === "light") document.documentElement.classList.add("light");
-  } catch (e) {}
-})();
-`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
       className={`${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
-      suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
-      </head>
       <body
         className="min-h-full flex flex-col"
         style={

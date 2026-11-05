@@ -9,13 +9,7 @@ export function Projects() {
       <StaggerGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {PROJECTS.map((project) => (
           <StaggerItem key={project.name}>
-            <article
-              className={`group flex h-full flex-col rounded-md border bg-surface p-5 transition-colors duration-300 ${
-                project.featured
-                  ? "border-accent/30 hover:border-accent/60"
-                  : "border-line hover:border-accent/40"
-              }`}
-            >
+            <article className="card-flame group flex h-full flex-col rounded-lg bg-surface p-5">
               <div className="flex items-baseline justify-between gap-3">
                 <h3 className="font-semibold tracking-tight">{project.name}</h3>
                 <a
@@ -36,7 +30,7 @@ export function Projects() {
                 {project.stack.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded border border-line px-2 py-0.5 font-mono text-[11px] text-muted"
+                    className="chip rounded border border-orange-200/80 bg-orange-50 px-2 py-0.5 font-mono text-[11px] text-orange-700"
                   >
                     {tech}
                   </li>

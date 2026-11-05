@@ -7,10 +7,10 @@ export function Experience() {
   return (
     <Section id="experience" index="01" title="Опыт">
       <div className="relative">
-        {/* вертикальная линия таймлайна */}
+        {/* вертикальная линия таймлайна: градиент оранж → янтарь */}
         <span
           aria-hidden="true"
-          className="absolute top-2 bottom-2 left-[5px] w-px bg-line"
+          className="absolute top-2 bottom-2 left-[4px] w-0.5 rounded-full bg-gradient-to-b from-orange-400 via-amber-300 to-orange-200"
         />
         <StaggerGroup className="flex flex-col gap-10">
           {EXPERIENCE.map((item) => (
@@ -18,9 +18,9 @@ export function Experience() {
               <article className="relative pl-8">
                 <span
                   aria-hidden="true"
-                  className="absolute top-1.5 left-0 size-[11px] rounded-full border border-accent bg-background"
+                  className="timeline-dot absolute top-1.5 left-0 size-[11px] rounded-full bg-orange-500"
                 >
-                  <span className="absolute inset-[2px] rounded-full bg-accent" />
+                  <span className="absolute inset-[2.5px] rounded-full bg-amber-300" />
                 </span>
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h3 className="font-semibold tracking-tight">
@@ -39,7 +39,7 @@ export function Experience() {
                   {item.stack.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded border border-line bg-surface px-2 py-0.5 font-mono text-[11px] text-muted"
+                      className="chip rounded border border-orange-200/80 bg-orange-50 px-2 py-0.5 font-mono text-[11px] text-orange-700"
                     >
                       {tech}
                     </li>

@@ -1,37 +1,32 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0a0a0b;
-  --surface: #111114;
-  --foreground: #e7e7ea;
-  --muted: #8a8a93;
-  --faint: #55555e;
-  --line: #232329;
-  --accent: #2dd4bf;
-  --accent-dim: rgba(45, 212, 191, 0.12);
-  --grid: rgba(231, 231, 234, 0.04);
-}
+/* --- Дизайн-система WHITE + FLAME --- */
 
-.light {
-  --background: #f7f7f8;
+:root {
+  --background: #fffdf9;
   --surface: #ffffff;
-  --foreground: #17171a;
-  --muted: #5c5c66;
-  --faint: #9a9aa3;
-  --line: #e3e3e8;
-  --accent: #0d9488;
-  --accent-dim: rgba(13, 148, 136, 0.1);
-  --grid: rgba(23, 23, 26, 0.05);
+  --warm: #fff8f0;
+  --foreground: #1c1917;
+  --muted: #78716c;
+  --faint: #a8a29e;
+  --line: #f0e8dd;
+  --accent: #f97316;
+  --accent-2: #fbbf24;
+  --accent-3: #fb923c;
+  --accent-dim: rgba(249, 115, 22, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-warm: var(--warm);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
   --color-accent-dim: var(--accent-dim);
   --font-sans: var(--font-sans-stack);
   --font-mono: var(--font-mono-stack);
@@ -46,14 +41,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans-stack);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--background);
+  color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -62,33 +54,226 @@ body {
   }
 }
 
-/* --- Hero: тонкая сетка + курсорный spotlight --- */
+/* --- Hero: живое пламя (размытые плазменные пятна, CSS-дрейф) --- */
 
-.hero-grid {
-  background-image: linear-gradient(
-      to right,
-      var(--grid) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: 48px 48px;
+.flame-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  will-change: transform;
 }
 
-.hero-spotlight {
-  background: radial-gradient(
-    480px circle at var(--spot-x, 50%) var(--spot-y, 30%),
-    var(--accent-dim),
-    transparent 70%
-  );
+.flame-blob-1 {
+  width: 34rem;
+  height: 34rem;
+  top: -10rem;
+  left: -8rem;
+  background: radial-gradient(circle, #fb923c 0%, transparent 70%);
+  opacity: 0.65;
+  animation: flame-drift-a 22s ease-in-out infinite alternate;
 }
 
-/* тонкий noise-слой поверх hero */
-.hero-spotlight::after {
+.flame-blob-2 {
+  width: 30rem;
+  height: 30rem;
+  top: -4rem;
+  right: -10rem;
+  background: radial-gradient(circle, #fbbf24 0%, transparent 70%);
+  opacity: 0.55;
+  animation: flame-drift-b 26s ease-in-out infinite alternate;
+}
+
+.flame-blob-3 {
+  width: 28rem;
+  height: 28rem;
+  bottom: -12rem;
+  left: 30%;
+  background: radial-gradient(circle, #f472b6 0%, transparent 70%);
+  opacity: 0.5;
+  animation: flame-drift-c 24s ease-in-out infinite alternate;
+}
+
+@keyframes flame-drift-a {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6rem, 3rem) scale(1.12);
+  }
+  100% {
+    transform: translate(2rem, 7rem) scale(0.95);
+  }
+}
+
+@keyframes flame-drift-b {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-5rem, 4rem) scale(1.08);
+  }
+  100% {
+    transform: translate(-8rem, 1rem) scale(0.92);
+  }
+}
+
+@keyframes flame-drift-c {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4rem, -4rem) scale(1.15);
+  }
+  100% {
+    transform: translate(-3rem, -2rem) scale(1);
+  }
+}
+
+/* лёгкий noise-слой поверх пламени */
+.flame-noise::after {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- Градиентный текст --- */
+
+.text-flame {
+  background: linear-gradient(100deg, #f97316 10%, #fbbf24 45%, #fb923c 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- Кнопка с shimmer-бликом при hover --- */
+
+.btn-flame {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #f97316, #fb923c);
+  color: #fff;
+  box-shadow: 0 4px 16px -4px rgba(249, 115, 22, 0.4);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.btn-flame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.btn-flame:hover {
+  box-shadow: 0 8px 24px -6px rgba(249, 115, 22, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-flame:hover::before {
+  animation: btn-shimmer 0.9s ease forwards;
+}
+
+@keyframes btn-shimmer {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* --- Карточка: анимированная градиентная рамка при hover --- */
+
+.card-flame {
+  position: relative;
+  border: 1px solid var(--line);
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.card-flame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, #f97316, #fbbf24, #fb923c, #f97316);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card-flame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -10px rgba(249, 115, 22, 0.28);
+}
+
+.card-flame:hover::before {
+  opacity: 1;
+  animation: border-flow 4s linear infinite;
+}
+
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- Таймлайн: пульсирующая точка --- */
+
+.timeline-dot {
+  animation: dot-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.35);
+  }
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 7px rgba(249, 115, 22, 0);
+  }
+}
+
+/* --- Чипы навыков: hover lift + цветная тень --- */
+
+.chip {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.chip:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--chip-shadow, 0 4px 12px -2px rgba(249, 115, 22, 0.3));
+}
+
+/* --- Чередование фона секций --- */
+
+main > section:nth-of-type(even) {
+  background: var(--warm);
 }
 
 /* --- Утилиты --- */
@@ -98,4 +283,27 @@ body {
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+/* --- prefers-reduced-motion: отключить все декоративные анимации --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .flame-blob,
+  .btn-flame:hover::before,
+  .card-flame:hover::before,
+  .timeline-dot {
+    animation: none !important;
+  }
+
+  .btn-flame,
+  .card-flame,
+  .chip {
+    transition: none !important;
+  }
+
+  .card-flame:hover,
+  .btn-flame:hover,
+  .chip:hover {
+    transform: none;
+  }
 }

@@ -8,7 +8,7 @@ export function Education() {
     <Section id="education" index="05" title="Образование">
       <div className="flex flex-col gap-6">
         <Reveal>
-          <article className="rounded-md border border-line bg-surface p-5">
+          <article className="card-flame rounded-lg bg-surface p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <h3 className="font-semibold tracking-tight">
                 {EDUCATION.university}
@@ -17,13 +17,13 @@ export function Education() {
             </div>
             <p className="mt-1 text-sm text-muted">
               {EDUCATION.program} · {EDUCATION.course} ·{" "}
-              <span className="font-mono text-xs text-accent">
+              <span className="font-mono text-xs font-medium text-accent">
                 {EDUCATION.gpa}
               </span>
             </p>
 
             {/* Дипломная работа */}
-            <div className="mt-5 rounded border border-accent/30 p-4">
+            <div className="mt-5 rounded-md border border-orange-200/80 bg-orange-50/60 p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h4 className="font-mono text-xs text-accent">
                   {thesis.title}
@@ -41,7 +41,7 @@ export function Education() {
 
         <Reveal delay={0.05}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="rounded-md border border-line p-5">
+            <div className="card-flame rounded-lg bg-surface p-5">
               <h3 className="font-mono text-xs text-accent">Языки</h3>
               <ul className="mt-3 flex flex-col gap-2">
                 {EDUCATION.languages.map((lang) => (
@@ -57,7 +57,7 @@ export function Education() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-md border border-line p-5">
+            <div className="card-flame rounded-lg bg-surface p-5">
               <h3 className="font-mono text-xs text-accent">
                 Студенческая жизнь
               </h3>

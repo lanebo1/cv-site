@@ -24,7 +24,10 @@ export function Section({
             <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
               {title}
             </h2>
-            <span className="hidden h-px flex-1 bg-line sm:block" />
+            <span
+              aria-hidden="true"
+              className="hidden h-px flex-1 bg-gradient-to-r from-orange-300/70 to-transparent sm:block"
+            />
           </div>
         </Reveal>
         {children}
