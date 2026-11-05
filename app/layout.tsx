@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Manrope } from "next/font/google";
+import { JetBrains_Mono, Manrope, Unbounded } from "next/font/google";
 import "./globals.css";
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -28,14 +34,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${unbounded.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body
         className="min-h-full flex flex-col"
         style={
           {
-            "--font-sans-stack": `${manrope.style}, system-ui, -apple-system, 'Segoe UI', sans-serif`,
-            "--font-mono-stack": `${jetbrainsMono.style}, ui-monospace, 'SF Mono', 'Cascadia Mono', monospace`,
+            "--font-display-stack": `var(--font-unbounded), var(--font-manrope), system-ui, sans-serif`,
+            "--font-sans-stack": `var(--font-manrope), system-ui, -apple-system, 'Segoe UI', sans-serif`,
+            "--font-mono-stack": `var(--font-jetbrains), ui-monospace, 'SF Mono', 'Cascadia Mono', monospace`,
           } as React.CSSProperties
         }
       >

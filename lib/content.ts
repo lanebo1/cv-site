@@ -14,7 +14,19 @@ export const CONTACTS = {
 };
 
 export const ABOUT =
-  "Инженер DevOps / Infra, 2+ года: автоматизация CI/CD, контейнерные развёртывания, observability. Production-инфраструктура на Docker/Kubernetes, self-hosted Linux-серверы: GitHub Actions-раннеры, NGINX+TLS, blue-green deployment. Диагностика по логам и метрикам, чтение backend-кода (TS, Python, Java, Go).";
+  "DevOps-инженер, 2+ года практики: CI/CD, контейнеры, observability. Держал прод на Docker и Kubernetes, поднимал self-hosted раннеры, NGINX+TLS и blue-green деплои. Диагностирую инциденты по логам и метрикам, читаю backend-код на TS, Python, Java и Go.";
+
+export const HERO = {
+  tagline:
+    "Собираю инфраструктуру, которая не падает. Автоматизирую всё, что запускается дважды.",
+  roles: ["DevOps Engineer", "Infra Architect", "AI-assisted Builder"],
+};
+
+export const FINALE = {
+  headline: "Пойдём строить?",
+  subline:
+    "Прод, который падает по ночам, пайплайны, собранные на коленке, инфраструктура без метрик — я это чиню. Напишите: обсудим вашу.",
+};
 
 export type Experience = {
   company: string;
@@ -34,7 +46,7 @@ export const EXPERIENCE: Experience[] = [
     period: "Сентябрь 2026 — н.в.",
     kind: "Full-time",
     description:
-      "Новый функционал внутреннего продукта; юнит-, интеграционные и e2e-тесты; ревью кода, RFC-документы.",
+      "Пишу продовый Java — новый функционал внутреннего продукта. Закрываю фичи юнит-, интеграционными и e2e-тестами, ревьюю чужой код и оформляю RFC: сначала объясняю решение, потом реализую.",
     stack: [
       "Java",
       "k8s",
@@ -54,7 +66,7 @@ export const EXPERIENCE: Experience[] = [
     role: "Frontend инженер, тех. координатор",
     period: "Апрель 2026",
     description:
-      "Совместная работа с документами в реальном времени. Идея, продуктовая логика, MVP-scope, координация, frontend. Победа «Лучшее решение» MTS True Tech Hack 2026.",
+      "Придумал идею и сам довёл её до MVP за один хакатон: совместное редактирование документов в реальном времени. Продуктовая логика, координация команды, frontend — и «Лучшее решение» MTS True Tech Hack 2026 в качестве результата.",
     stack: ["React", "TypeScript", "Vite", "Mantine", "Yjs", "BlockNote"],
     link: {
       label: "github.com/motor-screwdriver/mts-true-tech-hack-26",
@@ -67,7 +79,7 @@ export const EXPERIENCE: Experience[] = [
     period: "Ноябрь 2025 — Май 2026",
     kind: "Full-time",
     description:
-      "Инфраструктура Docker/K8s: пайплайны GitLab CI (Kotlin DSL), observability-стек, диагностика production-инцидентов по логам и метрикам, стабильность релизов.",
+      "Держал на себе инфраструктуру Docker/K8s и пайплайны GitLab CI на Kotlin DSL — от раннеров до прод-релизов. Собрал observability-стек Prometheus + Loki + Grafana и разбирал прод-инциденты по логам и метрикам, пока релизы оставались стабильными.",
     stack: [
       "Linux",
       "Docker",
@@ -84,7 +96,7 @@ export const EXPERIENCE: Experience[] = [
     role: "DevOps инженер, тех. координатор",
     period: "Июнь — Август 2025",
     description:
-      "Микросервисная архитектура, координация команды из 7 человек, self-hosted GitHub Actions-раннеры, blue-green за HAProxy без простоя.",
+      "Вёл команду из 7 человек на микросервисной архитектуре. Поднял self-hosted GitHub Actions-раннеры и провёл blue-green деплой за HAProxy — релизы без минуты простоя.",
     stack: [
       "Docker",
       "PostgreSQL",
@@ -103,7 +115,7 @@ export const EXPERIENCE: Experience[] = [
     role: "DevOps инженер, координатор",
     period: "Апрель 2025",
     description:
-      "Сбор и анализ логов с распределённых серверов: Docker, NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner. Руководил командой.",
+      "Собрал систему, которая собирает логи с распределённых серверов и делает их читаемыми: NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner. Вёл одновременно команду и инфраструктуру.",
     stack: [
       "Docker",
       "MongoDB",
@@ -122,7 +134,7 @@ export const EXPERIENCE: Experience[] = [
     role: "Backend + DevOps, координатор",
     period: "Июнь — Июль 2024",
     description:
-      "Автоматическое распределение студентов на элективы для Университета Иннополис. REST API на PostgreSQL, CI/CD с автотестами и деплоем, координация 5 разработчиков.",
+      "Распределял студентов на элективы Университета Иннополис — автоматически, а не через таблицы: REST API на PostgreSQL, CI/CD с автотестами и деплоем. Координировал 5 разработчиков.",
     stack: [
       "FastAPI",
       "SQLAlchemy",
@@ -153,7 +165,7 @@ export const PROJECTS: Project[] = [
     name: "WikiLive",
     tag: "MTS True Tech Hack 2026 · «Лучшее решение»",
     description:
-      "Совместное редактирование документов в реальном времени: идея, продуктовая логика, MVP-scope, координация и frontend на Yjs/BlockNote.",
+      "Совместное редактирование документов в реальном времени. Придумал, скоординировал и закрыл frontend на Yjs/BlockNote — синхронизация без конфликтов, редактор без задержек.",
     stack: ["React", "TypeScript", "Vite", "Mantine", "Yjs", "BlockNote"],
     link: {
       label: "mts-true-tech-hack-26",
@@ -165,7 +177,7 @@ export const PROJECTS: Project[] = [
     name: "Elect.Gen",
     tag: "Университет Иннополис · 2024",
     description:
-      "Автоматическое распределение студентов на элективы. REST API на PostgreSQL, CI/CD с автотестами и деплоем, координация 5 разработчиков.",
+      "Распределение студентов на элективы вместо ручных таблиц: REST API на PostgreSQL, CI/CD с автотестами и деплоем. Координировал 5 разработчиков.",
     stack: [
       "FastAPI",
       "SQLAlchemy",
@@ -184,7 +196,7 @@ export const PROJECTS: Project[] = [
     name: "Open Labs Share",
     tag: "IU Capstone Project 2025",
     description:
-      "Микросервисная платформа с blue-green деплоем за HAProxy без простоя и self-hosted GitHub Actions-раннерами.",
+      "Микросервисная платформа, где релизы не останавливают сервис: blue-green за HAProxy без простоя, плюс self-hosted GitHub Actions-раннеры.",
     stack: ["Docker", "PostgreSQL", "MinIO", "GitHub Actions", "HAProxy"],
     link: {
       label: "open-labs-share",
@@ -195,7 +207,7 @@ export const PROJECTS: Project[] = [
     name: "Distributed Log Analysis",
     tag: "Distributed systems · 2025",
     description:
-      "Сбор и анализ логов с распределённых серверов: NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner.",
+      "Логи с распределённых серверов собираются в одном месте и становятся читаемыми: NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner.",
     stack: ["Docker", "MongoDB", "NGINX", "RabbitMQ", "Yandex Cloud"],
     link: {
       label: "Distributed-Log-Analysis-Framework",
@@ -294,7 +306,7 @@ export const EDUCATION = {
   gpa: "GPA 4.6",
   thesis: {
     title: "Выпускная квалификационная работа",
-    status: "в разработке",
+    text: "Сейчас пишу ВКР — выпускную работу по направлению DevOps.",
     period: "2026 — 2027",
   },
   languages: [
