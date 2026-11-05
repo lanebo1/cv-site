@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ABOUT, CONTACTS } from "@/lib/content";
 import { IconDownload, IconTelegram } from "./icons";
@@ -29,38 +29,84 @@ function FadeIn({
   );
 }
 
-export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
+/* blur-in появление (как в Magic UI) */
+function BlurIn({
+  children,
+  delay,
+  className,
+  as: Tag = "h1",
+}: {
+  children: React.ReactNode;
+  delay: number;
+  className?: string;
+  as?: "h1" | "p";
+}) {
+  const reduce = useReducedMotion();
+  const Comp = motion[Tag];
+  return (
+    <Comp
+      className={className}
+      initial={reduce ? false : { opacity: 0, filter: "blur(10px)", y: 8 }}
+      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      transition={{ duration: 0.8, delay, ease: EASE }}
+    >
+      {children}
+    </Comp>
+  );
+}
 
-  const onMove = useCallback((e: React.MouseEvent) => {
+/* magnetic hover: кнопка мягко тянется к курсору */
+function Magnetic({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+
+  function onMove(e: React.MouseEvent) {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reduce) return;
     const rect = el.getBoundingClientRect();
-    el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
-  }, []);
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    el.style.transform = `translate(${dx * 0.12}px, ${dy * 0.18}px)`;
+  }
+
+  function onLeave() {
+    const el = ref.current;
+    if (el) el.style.transform = "translate(0px, 0px)";
+  }
 
   return (
     <div
-      id="top"
       ref={ref}
       onMouseMove={onMove}
-      className="hero-grid relative overflow-hidden pt-14"
-      style={{ ["--spot-x" as string]: "50%", ["--spot-y" as string]: "30%" }}
+      onMouseLeave={onLeave}
+      className="inline-block transition-transform duration-300 ease-out"
     >
-      {/* cursor spotlight */}
-      <div
-        aria-hidden="true"
-        className="hero-spotlight pointer-events-none absolute inset-0"
-      />
+      {children}
+    </div>
+  );
+}
+
+export function Hero() {
+  return (
+    <div
+      id="top"
+      className="flame-noise relative overflow-hidden pt-14"
+    >
+      {/* живое пламя: размытые плазменные пятна поверх белого */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="flame-blob flame-blob-1" />
+        <div className="flame-blob flame-blob-2" />
+        <div className="flame-blob flame-blob-3" />
+      </div>
+
       <div className="relative mx-auto flex w-full max-w-4xl flex-col gap-10 px-5 py-16 sm:px-8 sm:py-28">
         <div className="flex items-center gap-4">
           <FadeIn delay={0}>
             <div
               aria-hidden="true"
-              className="hero-grid flex size-14 items-center justify-center rounded-md border border-line sm:size-16"
+              className="flex size-14 items-center justify-center rounded-md border border-line bg-surface/80 shadow-sm backdrop-blur-sm sm:size-16"
             >
-              <span className="font-mono text-sm text-accent sm:text-base">
+              <span className="font-mono text-sm text-flame sm:text-base">
                 КЕ
               </span>
             </div>
@@ -86,11 +132,12 @@ export function Hero() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <FadeIn delay={0.1}>
-            <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-              {CONTACTS.name}
-            </h1>
-          </FadeIn>
+          <BlurIn
+            delay={0.1}
+            className="text-flame text-4xl font-semibold tracking-tight text-balance sm:text-6xl"
+          >
+            {CONTACTS.name}
+          </BlurIn>
           <FadeIn delay={0.15}>
             <p className="font-mono text-sm text-accent sm:text-base">
               {CONTACTS.role}
@@ -105,17 +152,19 @@ export function Hero() {
 
         <FadeIn delay={0.3}>
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={CONTACTS.resume}
-              download
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
-            >
-              <IconDownload className="size-4" />
-              Скачать PDF-резюме
-            </a>
+            <Magnetic>
+              <a
+                href={CONTACTS.resume}
+                download
+                className="btn-flame inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium"
+              >
+                <IconDownload className="size-4" />
+                Скачать PDF-резюме
+              </a>
+            </Magnetic>
             <a
               href={CONTACTS.telegramUrl}
-              className="inline-flex items-center gap-2 rounded-md border border-line px-4 py-2.5 text-sm text-foreground transition-colors hover:border-accent/50 hover:text-accent"
+              className="inline-flex items-center gap-2 rounded-md border border-line bg-surface/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-sm transition-colors hover:border-accent/50 hover:text-accent"
             >
               <IconTelegram className="size-4" />
               Telegram

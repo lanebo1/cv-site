@@ -6,6 +6,14 @@ import { AWARDS, STATS } from "@/lib/content";
 import { Section } from "./section";
 import { StaggerGroup, StaggerItem } from "./reveal";
 
+/* каждый счётчик — своего оттенка пламени/палитры */
+const STAT_COLORS = [
+  { text: "text-orange-500", bg: "bg-orange-50", dot: "bg-orange-400" },
+  { text: "text-amber-500", bg: "bg-amber-50", dot: "bg-amber-400" },
+  { text: "text-rose-500", bg: "bg-rose-50", dot: "bg-rose-400" },
+  { text: "text-teal-500", bg: "bg-teal-50", dot: "bg-teal-400" },
+];
+
 function Counter({
   to,
   decimals,
@@ -45,21 +53,32 @@ function Counter({
 export function Achievements() {
   return (
     <Section id="achievements" index="03" title="Достижения">
-      <StaggerGroup className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-4">
-        {STATS.map((stat) => (
-          <StaggerItem key={stat.label}>
-            <div className="flex h-full flex-col gap-1 bg-surface p-5">
-              <span className="font-mono text-3xl text-accent sm:text-4xl">
-                <Counter
-                  to={stat.value}
-                  decimals={stat.decimals}
-                  suffix={stat.suffix}
-                />
-              </span>
-              <span className="font-mono text-xs text-muted">{stat.label}</span>
-            </div>
-          </StaggerItem>
-        ))}
+      <StaggerGroup className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {STATS.map((stat, i) => {
+          const color = STAT_COLORS[i % STAT_COLORS.length];
+          return (
+            <StaggerItem key={stat.label}>
+              <div
+                className={`flex h-full flex-col gap-1 rounded-lg border border-line ${color.bg} p-5 transition-shadow duration-300 hover:shadow-lg hover:shadow-orange-200/60`}
+              >
+                <span className={`font-mono text-3xl sm:text-4xl ${color.text}`}>
+                  <Counter
+                    to={stat.value}
+                    decimals={stat.decimals}
+                    suffix={stat.suffix}
+                  />
+                </span>
+                <span className="flex items-center gap-2 font-mono text-xs text-muted">
+                  <span
+                    aria-hidden="true"
+                    className={`size-1.5 rounded-full ${color.dot}`}
+                  />
+                  {stat.label}
+                </span>
+              </div>
+            </StaggerItem>
+          );
+        })}
       </StaggerGroup>
       <StaggerGroup className="mt-8 flex flex-col">
         {AWARDS.map((award) => (
@@ -67,7 +86,7 @@ export function Achievements() {
             <div className="group flex items-start gap-3 border-t border-line py-3 last:border-b">
               <span
                 aria-hidden="true"
-                className="mt-[7px] size-1 shrink-0 rounded-full bg-faint transition-colors group-hover:bg-accent"
+                className="mt-[7px] size-1 shrink-0 rounded-full bg-orange-300 transition-colors group-hover:bg-accent"
               />
               <p className="text-sm text-muted transition-colors group-hover:text-foreground">
                 {award}

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, CONTACTS } from "@/lib/content";
-import { ThemeToggle } from "./theme-toggle";
 
 export function Nav() {
   const [active, setActive] = useState<string>("");
@@ -55,7 +54,6 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <ThemeToggle className="shrink-0 rounded-md border border-line p-2 text-muted transition-colors hover:border-accent/40 hover:text-accent" />
       </div>
     </header>
   );

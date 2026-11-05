@@ -40,14 +40,16 @@ export function Footer() {
   return (
     <Section id="contacts" index="06" title="Контакты">
       <Reveal>
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="group flex items-center gap-4 bg-surface p-5 transition-colors hover:bg-accent-dim"
+              className="card-flame group flex items-center gap-4 rounded-lg bg-surface p-5"
             >
-              <link.icon className="size-5 shrink-0 text-faint transition-colors group-hover:text-accent" />
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-orange-200/80 bg-orange-50 text-orange-500 transition-colors group-hover:bg-orange-100">
+                <link.icon className="size-5" />
+              </span>
               <span className="min-w-0">
                 <span className="block font-mono text-[11px] text-faint">
                   {link.label}
@@ -65,7 +67,7 @@ export function Footer() {
           <a
             href={CONTACTS.resume}
             download
-            className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+            className="btn-flame inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium"
           >
             <IconDownload className="size-4" />
             Скачать резюме (PDF)
