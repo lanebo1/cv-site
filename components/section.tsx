@@ -1,35 +1,47 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./reveal";
 
+/*
+ * Сцена: полноширинная секция со своим фоном и крупным заголовком.
+ * index — номер сцены (Unbounded, последовательность 01→04).
+ */
 export function Section({
   id,
   index,
   title,
+  dark = false,
   children,
 }: {
   id: string;
-  index: string;
-  title: string;
+  index?: string;
+  title?: string;
+  dark?: boolean;
   children: ReactNode;
 }) {
   return (
     <section
       id={id}
-      className="scroll-mt-24 border-t border-line py-16 sm:py-24"
+      className={`relative scroll-mt-24 overflow-hidden ${
+        dark ? "scene-dark" : ""
+      }`}
     >
-      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8">
-        <Reveal>
-          <div className="mb-10 flex items-baseline gap-4 sm:mb-14">
-            <span className="font-mono text-xs text-accent">{index}</span>
-            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-              {title}
-            </h2>
-            <span
-              aria-hidden="true"
-              className="hidden h-px flex-1 bg-gradient-to-r from-orange-300/70 to-transparent sm:block"
-            />
-          </div>
-        </Reveal>
+      <div className="relative mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
+        {(index || title) && (
+          <Reveal>
+            <header className="mb-12 flex items-baseline gap-4 sm:mb-16 sm:gap-6">
+              {index && (
+                <span className="font-display text-xl text-flame sm:text-3xl">
+                  {index}
+                </span>
+              )}
+              {title && (
+                <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+                  {title}
+                </h2>
+              )}
+            </header>
+          </Reveal>
+        )}
         {children}
       </div>
     </section>

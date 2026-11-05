@@ -1,13 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ABOUT, CONTACTS } from "@/lib/content";
+import { CONTACTS, HERO, STATS } from "@/lib/content";
+import { SceneBlobs } from "./blobs";
+import { Magnetic } from "./magnetic";
 import { IconDownload, IconTelegram } from "./icons";
 
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
-function FadeIn({
+function BlurIn({
   children,
   delay,
   className,
@@ -20,69 +22,77 @@ function FadeIn({
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      initial={reduce ? false : { opacity: 0, filter: "blur(10px)", y: 10 }}
+      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      transition={{ duration: 0.8, delay, ease: EASE }}
     >
       {children}
     </motion.div>
   );
 }
 
-/* blur-in появление (как в Magic UI) */
-function BlurIn({
-  children,
-  delay,
-  className,
-  as: Tag = "h1",
-}: {
-  children: React.ReactNode;
-  delay: number;
-  className?: string;
-  as?: "h1" | "p";
-}) {
+/* печать по кругу: DevOps Engineer → Infra Architect → AI-assisted Builder */
+function Typewriter({ words }: { words: string[] }) {
   const reduce = useReducedMotion();
-  const Comp = motion[Tag];
+  const [text, setText] = useState(words[0]);
+
+  useEffect(() => {
+    if (reduce) return;
+    let word = 0;
+    let char = words[0].length;
+    let deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const current = words[word];
+      if (!deleting) {
+        if (char >= current.length) {
+          deleting = true;
+          timer = setTimeout(tick, 1700); // пауза на полном слове
+          return;
+        }
+        char += 1;
+        setText(current.slice(0, char));
+        timer = setTimeout(tick, 55 + Math.random() * 60);
+      } else {
+        if (char <= 0) {
+          deleting = false;
+          word = (word + 1) % words.length;
+          timer = setTimeout(tick, 380);
+          return;
+        }
+        char -= 1;
+        setText(current.slice(0, char));
+        timer = setTimeout(tick, 30);
+      }
+    };
+
+    timer = setTimeout(tick, 1700);
+    return () => clearTimeout(timer);
+  }, [reduce, words]);
+
   return (
-    <Comp
-      className={className}
-      initial={reduce ? false : { opacity: 0, filter: "blur(10px)", y: 8 }}
-      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-      transition={{ duration: 0.8, delay, ease: EASE }}
-    >
-      {children}
-    </Comp>
+    <span>
+      {text}
+      <span className="type-caret" aria-hidden="true" />
+    </span>
   );
 }
 
-/* magnetic hover: кнопка мягко тянется к курсору */
-function Magnetic({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-
-  function onMove(e: React.MouseEvent) {
-    const el = ref.current;
-    if (!el || reduce) return;
-    const rect = el.getBoundingClientRect();
-    const dx = e.clientX - (rect.left + rect.width / 2);
-    const dy = e.clientY - (rect.top + rect.height / 2);
-    el.style.transform = `translate(${dx * 0.12}px, ${dy * 0.18}px)`;
-  }
-
-  function onLeave() {
-    const el = ref.current;
-    if (el) el.style.transform = "translate(0px, 0px)";
-  }
-
+/* строка статов снизу hero — из фактов STATS */
+function StatLine() {
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className="inline-block transition-transform duration-300 ease-out"
-    >
-      {children}
-    </div>
+    <p className="font-mono text-[11px] tracking-wide text-faint sm:text-xs">
+      {STATS.map((s, i) => (
+        <span key={s.label}>
+          {i > 0 && <span className="mx-2 text-orange-300">/</span>}
+          {s.value.toFixed(s.decimals)}
+          {s.suffix} {s.label}
+        </span>
+      ))}
+      <span className="mx-2 text-orange-300">/</span>
+      {CONTACTS.city}
+    </p>
   );
 }
 
@@ -90,87 +100,117 @@ export function Hero() {
   return (
     <div
       id="top"
-      className="flame-noise relative overflow-hidden pt-14"
+      className="flame-noise relative flex min-h-svh flex-col overflow-hidden pt-14"
     >
-      {/* живое пламя: размытые плазменные пятна поверх белого */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="flame-blob flame-blob-1" />
-        <div className="flame-blob flame-blob-2" />
-        <div className="flame-blob flame-blob-3" />
-      </div>
+      <SceneBlobs
+        blobs={[
+          {
+            size: 36,
+            color: "#fb923c",
+            opacity: 0.6,
+            anim: "a",
+            top: "-10rem",
+            left: "-9rem",
+          },
+          {
+            size: 30,
+            color: "#fbbf24",
+            opacity: 0.5,
+            anim: "b",
+            duration: 27,
+            top: "-6rem",
+            right: "-10rem",
+          },
+          {
+            size: 28,
+            color: "#fb7185",
+            opacity: 0.4,
+            anim: "c",
+            duration: 25,
+            bottom: "-12rem",
+            left: "32%",
+          },
+        ]}
+      />
 
-      <div className="relative mx-auto flex w-full max-w-4xl flex-col gap-10 px-5 py-16 sm:px-8 sm:py-28">
-        <div className="flex items-center gap-4">
-          <FadeIn delay={0}>
-            <div
-              aria-hidden="true"
-              className="flex size-14 items-center justify-center rounded-md border border-line bg-surface/80 shadow-sm backdrop-blur-sm sm:size-16"
+      <div className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-5 py-20 sm:px-8">
+        <BlurIn delay={0.05}>
+          <p className="font-mono text-xs text-muted">
+            {CONTACTS.city} ·{" "}
+            <a
+              href={CONTACTS.telegramUrl}
+              className="transition-colors hover:text-accent"
             >
-              <span className="font-mono text-sm text-flame sm:text-base">
-                КЕ
-              </span>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <p className="font-mono text-xs text-muted">
-              {CONTACTS.city} ·{" "}
-              <a
-                href={CONTACTS.telegramUrl}
-                className="transition-colors hover:text-accent"
-              >
-                {CONTACTS.telegram}
-              </a>{" "}
-              ·{" "}
-              <a
-                href={CONTACTS.githubUrl}
-                className="transition-colors hover:text-accent"
-              >
-                {CONTACTS.github}
-              </a>
-            </p>
-          </FadeIn>
-        </div>
+              {CONTACTS.telegram}
+            </a>{" "}
+            ·{" "}
+            <a
+              href={CONTACTS.githubUrl}
+              className="transition-colors hover:text-accent"
+            >
+              {CONTACTS.github}
+            </a>
+          </p>
+        </BlurIn>
 
-        <div className="flex flex-col gap-5">
-          <BlurIn
-            delay={0.1}
-            className="text-flame text-4xl font-semibold tracking-tight text-balance sm:text-6xl"
-          >
-            {CONTACTS.name}
-          </BlurIn>
-          <FadeIn delay={0.15}>
-            <p className="font-mono text-sm text-accent sm:text-base">
-              {CONTACTS.role}
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-              {ABOUT}
-            </p>
-          </FadeIn>
-        </div>
+        <BlurIn delay={0.15}>
+          <h1 className="text-flame mt-6 font-display text-[clamp(2.5rem,9vw,7rem)] leading-[0.98] font-bold tracking-tight text-balance">
+            Кирилл
+            <br />
+            Ефимович
+          </h1>
+        </BlurIn>
 
-        <FadeIn delay={0.3}>
-          <div className="flex flex-wrap items-center gap-3">
+        <BlurIn delay={0.3}>
+          <p className="mt-7 font-mono text-base text-accent sm:text-xl">
+            <Typewriter words={HERO.roles} />
+          </p>
+        </BlurIn>
+
+        <BlurIn delay={0.45}>
+          <p className="mt-6 max-w-xl text-lg leading-snug font-medium text-foreground sm:text-2xl sm:leading-snug">
+            {HERO.tagline}
+          </p>
+        </BlurIn>
+
+        <BlurIn delay={0.6}>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <Magnetic>
               <a
                 href={CONTACTS.resume}
                 download
-                className="btn-flame inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium"
+                className="btn-flame inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-medium"
               >
                 <IconDownload className="size-4" />
                 Скачать PDF-резюме
               </a>
             </Magnetic>
-            <a
-              href={CONTACTS.telegramUrl}
-              className="inline-flex items-center gap-2 rounded-md border border-line bg-surface/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-sm transition-colors hover:border-accent/50 hover:text-accent"
-            >
-              <IconTelegram className="size-4" />
-              Telegram
-            </a>
+            <Magnetic>
+              <a
+                href={CONTACTS.telegramUrl}
+                className="inline-flex items-center gap-2 rounded-md border border-line bg-surface/70 px-5 py-3 text-sm font-medium backdrop-blur-sm transition-colors hover:border-accent/50 hover:text-accent"
+              >
+                <IconTelegram className="size-4" />
+                Telegram
+              </a>
+            </Magnetic>
           </div>
-        </FadeIn>
+        </BlurIn>
+      </div>
+
+      {/* scroll-cue + статы: якорь в первую сцену */}
+      <div className="relative mx-auto flex w-full max-w-5xl flex-wrap items-end justify-between gap-x-8 gap-y-4 px-5 pb-8 sm:px-8">
+        <StatLine />
+        <a
+          href="#experience"
+          aria-label="Прокрутить к опыту"
+          className="group flex flex-col items-center gap-2 pb-1"
+        >
+          <span className="scroll-cue-line" aria-hidden="true" />
+          <span className="font-mono text-[10px] text-faint transition-colors group-hover:text-accent">
+            скролл
+          </span>
+        </a>
       </div>
     </div>
   );

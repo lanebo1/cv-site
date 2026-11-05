@@ -14,6 +14,8 @@
   --accent-2: #fbbf24;
   --accent-3: #fb923c;
   --accent-dim: rgba(249, 115, 22, 0.1);
+  --ink: #1c1917;
+  --paper: #fffdf9;
 }
 
 @theme inline {
@@ -30,6 +32,7 @@
   --color-accent-dim: var(--accent-dim);
   --font-sans: var(--font-sans-stack);
   --font-mono: var(--font-mono-stack);
+  --font-display: var(--font-display-stack);
 }
 
 html {
@@ -61,36 +64,6 @@ body {
   border-radius: 9999px;
   filter: blur(120px);
   will-change: transform;
-}
-
-.flame-blob-1 {
-  width: 34rem;
-  height: 34rem;
-  top: -10rem;
-  left: -8rem;
-  background: radial-gradient(circle, #fb923c 0%, transparent 70%);
-  opacity: 0.65;
-  animation: flame-drift-a 22s ease-in-out infinite alternate;
-}
-
-.flame-blob-2 {
-  width: 30rem;
-  height: 30rem;
-  top: -4rem;
-  right: -10rem;
-  background: radial-gradient(circle, #fbbf24 0%, transparent 70%);
-  opacity: 0.55;
-  animation: flame-drift-b 26s ease-in-out infinite alternate;
-}
-
-.flame-blob-3 {
-  width: 28rem;
-  height: 28rem;
-  bottom: -12rem;
-  left: 30%;
-  background: radial-gradient(circle, #f472b6 0%, transparent 70%);
-  opacity: 0.5;
-  animation: flame-drift-c 24s ease-in-out infinite alternate;
 }
 
 @keyframes flame-drift-a {
@@ -135,6 +108,7 @@ body {
   position: absolute;
   inset: 0;
   opacity: 0.4;
+  pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -239,24 +213,6 @@ body {
   }
 }
 
-/* --- Таймлайн: пульсирующая точка --- */
-
-.timeline-dot {
-  animation: dot-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes dot-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.35);
-  }
-  50% {
-    transform: scale(1.18);
-    box-shadow: 0 0 0 7px rgba(249, 115, 22, 0);
-  }
-}
-
 /* --- Чипы навыков: hover lift + цветная тень --- */
 
 .chip {
@@ -270,10 +226,273 @@ body {
   box-shadow: var(--chip-shadow, 0 4px 12px -2px rgba(249, 115, 22, 0.3));
 }
 
-/* --- Чередование фона секций --- */
+/* --- Тёмные сцены: почти-чёрные с оранжевым свечением --- */
 
-main > section:nth-of-type(even) {
-  background: var(--warm);
+.scene-dark {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      rgba(249, 115, 22, 0.14),
+      transparent 70%
+    ),
+    var(--ink);
+  color: var(--paper);
+}
+
+.scene-dark ::selection {
+  background: var(--accent-2);
+  color: var(--ink);
+}
+
+.glow-text {
+  color: var(--accent-2);
+  text-shadow:
+    0 0 14px rgba(251, 191, 36, 0.55),
+    0 0 42px rgba(249, 115, 22, 0.35);
+}
+
+.glow-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(251, 191, 36, 0.6),
+    transparent
+  );
+}
+
+/* --- particle-sparks: мелкие оранжевые точки всплывают вверх --- */
+
+.spark {
+  position: absolute;
+  bottom: -8px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #fbbf24;
+  box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.5);
+  opacity: 0;
+  animation: spark-rise linear infinite;
+}
+
+@keyframes spark-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-70vh) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* --- Бегущая строка навыков: 2 ряда в противоположные стороны --- */
+
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+  animation: marquee-scroll var(--marquee-speed, 60s) linear infinite;
+}
+
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Выделение ВКР: marker-подсветка с sweep оранжевым --- */
+
+.highlight-sweep {
+  background-image: linear-gradient(
+    100deg,
+    rgba(251, 191, 36, 0.55),
+    rgba(249, 115, 22, 0.45)
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 88%;
+  background-position: 0 62%;
+}
+
+/* запускается, когда ВКР попадает в кадр (класс добавляется из JS) */
+.highlight-sweep.is-sweeping {
+  animation: highlight-grow 1.6s 0.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes highlight-grow {
+  to {
+    background-size: 100% 88%;
+  }
+}
+
+/* --- Scroll-cue: падающая линия --- */
+
+.scroll-cue-line {
+  position: relative;
+  width: 1px;
+  height: 3.5rem;
+  overflow: hidden;
+  background: rgba(28, 25, 21, 0.14);
+}
+
+.scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+  animation: cue-drop 2s ease-in-out infinite;
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(280%);
+  }
+}
+
+/* --- Shimmer-ободок наградных бейджей --- */
+
+.badge-flame {
+  position: relative;
+}
+
+.badge-flame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    115deg,
+    rgba(249, 115, 22, 0.1),
+    rgba(251, 191, 36, 0.9),
+    rgba(249, 115, 22, 0.1)
+  );
+  background-size: 250% 250%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-flow 5s linear infinite;
+  pointer-events: none;
+}
+
+/* --- Мигающий курсор печати --- */
+
+.type-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --- Проекты: 3D-tilt карточка с glow под курсором --- */
+
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  border: 1px solid var(--line);
+}
+
+/* оранжевый градиентный бордер — живёт всегда, усиливается на hover */
+.tilt-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    #f97316,
+    #fbbf24,
+    #fb923c,
+    #f97316
+  );
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* glow-подсветка под курсором (позиция приходит из JS через --glow-x/y) */
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(249, 115, 22, 0.16),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.tilt-card:hover::before {
+  opacity: 1;
+  animation: border-flow 4s linear infinite;
+}
+
+.tilt-card:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card:hover::before {
+    animation: none;
+  }
 }
 
 /* --- Утилиты --- */
@@ -289,9 +508,30 @@ main > section:nth-of-type(even) {
 
 @media (prefers-reduced-motion: reduce) {
   .flame-blob,
+  .spark,
+  .badge-flame::before,
+  .scroll-cue-line::after,
   .btn-flame:hover::before,
   .card-flame:hover::before,
-  .timeline-dot {
+  .marquee-track,
+  .type-caret {
+    animation: none !important;
+  }
+
+  /* без анимации бегущей строки — статичная переноска чипов */
+  .marquee-track {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .marquee-copy {
+    display: none;
+  }
+
+  /* подсветка ВКР видна сразу */
+  .highlight-sweep,
+  .highlight-sweep.is-sweeping {
+    background-size: 100% 88%;
     animation: none !important;
   }
 
