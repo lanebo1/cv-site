@@ -85,7 +85,7 @@ function CaseBlock({ project, index }: { project: Project; index: number }) {
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
             {project.tag}
           </p>
-          <h3 className="font-display mt-3 text-2xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+          <h3 className="font-display mt-3 text-3xl font-bold tracking-tight uppercase sm:text-5xl lg:text-[3.25rem] lg:leading-tight">
             {project.name}
           </h3>
           <p className="mt-5 text-sm leading-relaxed text-foreground/80">

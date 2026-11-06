@@ -3,7 +3,7 @@ import { Reveal } from "./reveal";
 
 /*
  * Сцена: полноширинная секция со своим фоном и крупным заголовком.
- * index — номер сцены (Cormorant, последовательность 01→04).
+ * index — номер сцены (Oswald, последовательность 01→04).
  */
 export function Section({
   id,
@@ -30,12 +30,12 @@ export function Section({
           <Reveal>
             <header className="mb-12 flex items-baseline gap-4 sm:mb-16 sm:gap-6">
               {index && (
-                <span className="font-display text-xl font-semibold text-flame sm:text-3xl">
+                <span className="font-display text-2xl font-bold text-flame sm:text-4xl">
                   {index}
                 </span>
               )}
               {title && (
-                <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
+                <h2 className="font-display text-4xl font-bold tracking-tight uppercase sm:text-6xl">
                   {title}
                 </h2>
               )}

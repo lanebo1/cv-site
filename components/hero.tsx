@@ -154,10 +154,10 @@ export function Hero() {
         </BlurIn>
 
         <BlurIn delay={0.15}>
-          <h1 className="text-flame mt-6 font-display text-[clamp(2.5rem,9vw,7rem)] leading-[0.98] font-bold tracking-tight text-balance">
+          <h1 className="text-flame mt-6 font-display text-[clamp(2.75rem,10vw,8rem)] leading-[0.95] font-bold tracking-tight uppercase text-balance">
             Кирилл
             <br />
-            <span className="italic">Ефимович</span>
+            Ефимович
           </h1>
         </BlurIn>
 
