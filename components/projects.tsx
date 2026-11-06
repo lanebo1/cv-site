@@ -70,7 +70,7 @@ function CaseBlock({ project, index }: { project: Project; index: number }) {
         {/* Большой полупрозрачный номер кейса — по диагонали от контента */}
         <span
           aria-hidden
-          className={`pointer-events-none absolute -top-3 select-none font-display text-[5rem] font-extrabold leading-none text-orange-500/[0.09] sm:-top-6 sm:text-[9rem] lg:text-[11rem] ${
+          className={`pointer-events-none absolute -top-3 select-none font-display text-[5rem] font-bold leading-none text-orange-500/[0.09] sm:-top-6 sm:text-[9rem] lg:text-[11rem] ${
             right ? "left-2 sm:left-6" : "right-2 sm:right-6"
           }`}
         >
@@ -85,7 +85,7 @@ function CaseBlock({ project, index }: { project: Project; index: number }) {
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
             {project.tag}
           </p>
-          <h3 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+          <h3 className="font-display mt-3 text-2xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
             {project.name}
           </h3>
           <p className="mt-5 text-sm leading-relaxed text-foreground/80">

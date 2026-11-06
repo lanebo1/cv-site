@@ -47,11 +47,11 @@ export function Education() {
 
           <div className="flex flex-col gap-8">
             <div>
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
                 Образование
               </h2>
               <div className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <h3 className="text-lg font-semibold tracking-tight">
+                <h3 className="font-display text-xl font-semibold tracking-tight">
                   {EDUCATION.university}
                 </h3>
                 <p className="font-mono text-xs text-faint">

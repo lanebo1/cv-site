@@ -61,7 +61,7 @@ export function Experience() {
       </p>
 
       <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-14">
-        {/* sticky-колонка: текущая компания крупным Unbounded */}
+        {/* sticky-колонка: текущая компания крупным Cormorant */}
         <div className="md:sticky md:top-24 md:self-start">
           <p className="font-mono text-xs text-faint">
             {String(active + 1).padStart(2, "0")} /{" "}

@@ -1,15 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Manrope, Unbounded } from "next/font/google";
+import { Cormorant, JetBrains_Mono, Onest } from "next/font/google";
 import "./globals.css";
 
-const unbounded = Unbounded({
-  variable: "--font-unbounded",
+const cormorant = Cormorant({
+  variable: "--font-cormorant",
   subsets: ["latin", "cyrillic"],
+  weight: ["500", "600", "700"],
+  // настоящие курсивные глифы для editorial-акцентов (не faux italic)
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -34,14 +37,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${unbounded.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body
         className="min-h-full flex flex-col"
         style={
           {
-            "--font-display-stack": `var(--font-unbounded), var(--font-manrope), system-ui, sans-serif`,
-            "--font-sans-stack": `var(--font-manrope), system-ui, -apple-system, 'Segoe UI', sans-serif`,
+            "--font-display-stack": `var(--font-cormorant), Georgia, serif`,
+            "--font-sans-stack": `var(--font-onest), system-ui, -apple-system, 'Segoe UI', sans-serif`,
             "--font-mono-stack": `var(--font-jetbrains), ui-monospace, 'SF Mono', 'Cascadia Mono', monospace`,
           } as React.CSSProperties
         }
