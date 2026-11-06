@@ -157,7 +157,7 @@ export function Hero() {
           <h1 className="text-flame mt-6 font-display text-[clamp(2.5rem,9vw,7rem)] leading-[0.98] font-bold tracking-tight text-balance">
             Кирилл
             <br />
-            Ефимович
+            <span className="italic">Ефимович</span>
           </h1>
         </BlurIn>
 
