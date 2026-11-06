@@ -69,19 +69,8 @@ export function Footer() {
 
       <div className="relative mx-auto w-full max-w-5xl px-5 py-24 sm:px-8 sm:py-32">
         <p className="font-mono text-xs text-stone-500">финальный кадр</p>
-        <h2 className="text-flame mt-6 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[1.02] font-bold tracking-tight text-balance">
-          {/* editorial-акцент: последнее слово курсивом */}
-          {(() => {
-            const cut = FINALE.headline.lastIndexOf(" ");
-            return cut === -1 ? (
-              FINALE.headline
-            ) : (
-              <>
-                {FINALE.headline.slice(0, cut)}{" "}
-                <span className="italic">{FINALE.headline.slice(cut + 1)}</span>
-              </>
-            );
-          })()}
+        <h2 className="text-flame mt-6 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] font-bold tracking-tight uppercase text-balance">
+          {FINALE.headline}
         </h2>
         <p className="mt-6 max-w-xl text-sm leading-relaxed text-stone-300 sm:text-base">
           {FINALE.subline}

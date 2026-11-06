@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant, JetBrains_Mono, Onest } from "next/font/google";
+import { JetBrains_Mono, Onest, Oswald } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant({
-  variable: "--font-cormorant",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin", "cyrillic"],
   weight: ["500", "600", "700"],
-  // настоящие курсивные глифы для editorial-акцентов (не faux italic)
-  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -37,13 +35,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${cormorant.variable} ${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${oswald.variable} ${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body
         className="min-h-full flex flex-col"
         style={
           {
-            "--font-display-stack": `var(--font-cormorant), Georgia, serif`,
+            "--font-display-stack": `var(--font-oswald), var(--font-onest), system-ui, sans-serif`,
             "--font-sans-stack": `var(--font-onest), system-ui, -apple-system, 'Segoe UI', sans-serif`,
             "--font-mono-stack": `var(--font-jetbrains), ui-monospace, 'SF Mono', 'Cascadia Mono', monospace`,
           } as React.CSSProperties
