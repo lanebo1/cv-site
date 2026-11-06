@@ -67,7 +67,7 @@ export function Footer() {
         ]}
       />
 
-      <div className="relative mx-auto w-full max-w-5xl px-5 py-24 sm:px-8 sm:py-36">
+      <div className="relative mx-auto w-full max-w-5xl px-5 py-24 sm:px-8 sm:py-32">
         <p className="font-mono text-xs text-stone-500">финальный кадр</p>
         <h2 className="text-flame mt-6 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[1.02] font-bold tracking-tight text-balance">
           {FINALE.headline}

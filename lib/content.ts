@@ -46,7 +46,7 @@ export const EXPERIENCE: Experience[] = [
     period: "Сентябрь 2026 — н.в.",
     kind: "Full-time",
     description:
-      "Пишу продовый Java — новый функционал внутреннего продукта. Закрываю фичи юнит-, интеграционными и e2e-тестами, ревьюю чужой код и оформляю RFC: сначала объясняю решение, потом реализую.",
+      "Пишу Java в прод: новый функционал внутреннего продукта. На каждую фичу — три уровня тестов: юнит, интеграция, e2e. Прежде чем кодировать — RFC: объясняю решение словами, потом подтверждаю кодом. Ревьюю код команды.",
     stack: [
       "Java",
       "k8s",
@@ -56,30 +56,17 @@ export const EXPERIENCE: Experience[] = [
       "Redis",
       "Spring Boot",
       "Maven",
-      "Lombok",
       "Mockito",
       "Allure",
     ],
   },
   {
-    company: "WikiLive",
-    role: "Frontend инженер, тех. координатор",
-    period: "Апрель 2026",
-    description:
-      "Придумал идею и сам довёл её до MVP за один хакатон: совместное редактирование документов в реальном времени. Продуктовая логика, координация команды, frontend — и «Лучшее решение» MTS True Tech Hack 2026 в качестве результата.",
-    stack: ["React", "TypeScript", "Vite", "Mantine", "Yjs", "BlockNote"],
-    link: {
-      label: "github.com/motor-screwdriver/mts-true-tech-hack-26",
-      href: "https://github.com/motor-screwdriver/mts-true-tech-hack-26",
-    },
-  },
-  {
     company: "ВК",
-    role: "DevOps инженер (Junior)",
+    role: "DevOps инженер",
     period: "Ноябрь 2025 — Май 2026",
     kind: "Full-time",
     description:
-      "Держал на себе инфраструктуру Docker/K8s и пайплайны GitLab CI на Kotlin DSL — от раннеров до прод-релизов. Собрал observability-стек Prometheus + Loki + Grafana и разбирал прод-инциденты по логам и метрикам, пока релизы оставались стабильными.",
+      "Моя первая большая прод-инфраструктура: Docker и Kubernetes, пайплайны GitLab CI на Kotlin DSL, собственные раннеры. Собрал observability-стек — Prometheus собирает, Loki хранит, Grafana показывает. Когда падало — находил причину по логам и метрикам, а не по догадкам. Релизы не останавливались.",
     stack: [
       "Linux",
       "Docker",
@@ -91,93 +78,70 @@ export const EXPERIENCE: Experience[] = [
       "Grafana",
     ],
   },
-  {
-    company: "Open Labs Share",
-    role: "DevOps инженер, тех. координатор",
-    period: "Июнь — Август 2025",
-    description:
-      "Вёл команду из 7 человек на микросервисной архитектуре. Поднял self-hosted GitHub Actions-раннеры и провёл blue-green деплой за HAProxy — релизы без минуты простоя.",
-    stack: [
-      "Docker",
-      "PostgreSQL",
-      "MinIO",
-      "GitHub Actions",
-      "HAProxy",
-      "GitHub Projects",
-    ],
-    link: {
-      label: "github.com/IU-Capstone-Project-2025/open-labs-share",
-      href: "https://github.com/IU-Capstone-Project-2025/open-labs-share",
-    },
-  },
-  {
-    company: "Distributed Log Analysis Framework",
-    role: "DevOps инженер, координатор",
-    period: "Апрель 2025",
-    description:
-      "Собрал систему, которая собирает логи с распределённых серверов и делает их читаемыми: NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner. Вёл одновременно команду и инфраструктуру.",
-    stack: [
-      "Docker",
-      "MongoDB",
-      "NGINX",
-      "RabbitMQ",
-      "GitHub Actions",
-      "Yandex Cloud",
-    ],
-    link: {
-      label: "github.com/Linch-JG/Distributed-Log-Analysis-Framework",
-      href: "https://github.com/Linch-JG/Distributed-Log-Analysis-Framework",
-    },
-  },
-  {
-    company: "Elect.Gen",
-    role: "Backend + DevOps, координатор",
-    period: "Июнь — Июль 2024",
-    description:
-      "Распределял студентов на элективы Университета Иннополис — автоматически, а не через таблицы: REST API на PostgreSQL, CI/CD с автотестами и деплоем. Координировал 5 разработчиков.",
-    stack: [
-      "FastAPI",
-      "SQLAlchemy",
-      "PostgreSQL",
-      "Docker",
-      "Swagger",
-      "GitHub Actions",
-      "Yandex Cloud",
-    ],
-    link: {
-      label: "github.com/quintet-sdr/elect-gen-backend",
-      href: "https://github.com/quintet-sdr/elect-gen-backend",
-    },
-  },
 ];
 
 export type Project = {
   name: string;
   tag: string;
+  role: string;
+  period: string;
   description: string;
+  result: string;
   stack: string[];
   link: { label: string; href: string };
-  featured?: boolean;
 };
 
 export const PROJECTS: Project[] = [
   {
     name: "WikiLive",
-    tag: "MTS True Tech Hack 2026 · «Лучшее решение»",
+    tag: "MTS True Tech Hack 2026",
+    role: "Идея, продуктовая логика, frontend, координация",
+    period: "Апрель 2026",
     description:
-      "Совместное редактирование документов в реальном времени. Придумал, скоординировал и закрыл frontend на Yjs/BlockNote — синхронизация без конфликтов, редактор без задержек.",
+      "Документы, которые редактирует вся команда одновременно — без конфликтов и потерянных правок. За один хакатон: идея, MVP на Yjs + BlockNote, frontend и командная координация.",
+    result: "Победа в номинации «Лучшее решение»",
     stack: ["React", "TypeScript", "Vite", "Mantine", "Yjs", "BlockNote"],
     link: {
       label: "mts-true-tech-hack-26",
       href: "https://github.com/motor-screwdriver/mts-true-tech-hack-26",
     },
-    featured: true,
+  },
+  {
+    name: "Open Labs Share",
+    tag: "IU Capstone Project 2025",
+    role: "DevOps, технический координатор команды из 7 человек",
+    period: "Июнь — Август 2025",
+    description:
+      "Микросервисная платформа для Иннополиса. Я поднял self-hosted GitHub Actions-раннеры и провёл blue-green деплой за HAProxy — новые версии выкатываются без минуты простоя, откат занимает секунды.",
+    result: "Релизы без простоя, инфраструктура пережила весь капстоун",
+    stack: ["Docker", "PostgreSQL", "MinIO", "GitHub Actions", "HAProxy"],
+    link: {
+      label: "open-labs-share",
+      href: "https://github.com/IU-Capstone-Project-2025/open-labs-share",
+    },
+  },
+  {
+    name: "Distributed Log Analysis",
+    tag: "Distributed systems",
+    role: "DevOps, координатор разработки",
+    period: "Апрель 2025",
+    description:
+      "Фреймворк, который собирает логи с кучи разрозненных серверов и складывает их в одно читаемое место: NGINX принимает, RabbitMQ развозит, MongoDB хранит. Деплой на собственный сервер — полностью автоматический.",
+    result: "Анализ логов из ручного ада превратился в автоматический пайплайн",
+    stack: ["Docker", "MongoDB", "NGINX", "RabbitMQ", "Yandex Cloud"],
+    link: {
+      label: "Distributed-Log-Analysis-Framework",
+      href: "https://github.com/Linch-JG/Distributed-Log-Analysis-Framework",
+    },
   },
   {
     name: "Elect.Gen",
-    tag: "Университет Иннополис · 2024",
+    tag: "Университет Иннополис",
+    role: "Backend + DevOps, координатор команды из 5 человек",
+    period: "Июнь — Июль 2024",
     description:
-      "Распределение студентов на элективы вместо ручных таблиц: REST API на PostgreSQL, CI/CD с автотестами и деплоем. Координировал 5 разработчиков.",
+      "Распределение сотен студентов по элективам — автоматически, вместо ручных таблиц и споров в чатах. REST API на PostgreSQL, CI/CD с автотестами, деплой в Yandex Cloud по кнопке.",
+    result: "Работает на реальном потоке Университета Иннополис",
     stack: [
       "FastAPI",
       "SQLAlchemy",
@@ -189,29 +153,6 @@ export const PROJECTS: Project[] = [
     link: {
       label: "elect-gen-backend",
       href: "https://github.com/quintet-sdr/elect-gen-backend",
-    },
-    featured: true,
-  },
-  {
-    name: "Open Labs Share",
-    tag: "IU Capstone Project 2025",
-    description:
-      "Микросервисная платформа, где релизы не останавливают сервис: blue-green за HAProxy без простоя, плюс self-hosted GitHub Actions-раннеры.",
-    stack: ["Docker", "PostgreSQL", "MinIO", "GitHub Actions", "HAProxy"],
-    link: {
-      label: "open-labs-share",
-      href: "https://github.com/IU-Capstone-Project-2025/open-labs-share",
-    },
-  },
-  {
-    name: "Distributed Log Analysis",
-    tag: "Distributed systems · 2025",
-    description:
-      "Логи с распределённых серверов собираются в одном месте и становятся читаемыми: NGINX, RabbitMQ, MongoDB, автодеплой через self-hosted runner.",
-    stack: ["Docker", "MongoDB", "NGINX", "RabbitMQ", "Yandex Cloud"],
-    link: {
-      label: "Distributed-Log-Analysis-Framework",
-      href: "https://github.com/Linch-JG/Distributed-Log-Analysis-Framework",
     },
   },
 ];
