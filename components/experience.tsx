@@ -103,7 +103,7 @@ export function Experience() {
               <motion.article
                 key={`${item.company}-${item.period}`}
                 onViewportEnter={() => setActive(i)}
-                viewport={{ margin: "-45% 0px -45% 0px" }}
+                viewport={{ once: true, amount: 0.05, margin: "100px" }}
                 initial={
                   reduce
                     ? false
