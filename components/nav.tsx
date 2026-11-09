@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, CONTACTS } from "@/lib/content";
 
+/* Чернильная плита-слэб: слово-марка слева, разделы капсом, активный — оранжевым. */
 export function Nav() {
   const [active, setActive] = useState<string>("");
 
@@ -26,30 +27,30 @@ export function Nav() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-4xl items-center gap-4 px-5 sm:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 bg-ink text-night-ink">
+      <div className="container flex h-14 items-center gap-6">
         <a
           href="#top"
-          className="font-mono text-xs text-muted transition-colors hover:text-foreground"
+          aria-label="Наверх, к началу страницы"
+          className="font-display text-md uppercase whitespace-nowrap"
         >
-          {CONTACTS.name.split(" ")[0]}_
+          {CONTACTS.name.split(" ")[0]}
         </a>
         <nav
           aria-label="Разделы сайта"
-          className="scrollbar-none -mx-1 flex flex-1 items-center gap-1 overflow-x-auto px-1"
+          className="scrollbar-none flex flex-1 items-center gap-1 overflow-x-auto"
         >
           {NAV_SECTIONS.map((s) => (
             <a
               key={s.id}
               href={`#${s.id}`}
               aria-current={active === s.id ? "true" : undefined}
-              className={`shrink-0 px-2 py-1 font-mono text-xs transition-colors ${
+              className={`font-display text-md uppercase whitespace-nowrap px-2 py-1 transition-colors ${
                 active === s.id
-                  ? "text-accent"
-                  : "text-faint hover:text-foreground"
+                  ? "text-night-2"
+                  : "text-night-muted hover:text-night-ink"
               }`}
             >
-              <span className="text-accent/60">#</span>
               {s.label}
             </a>
           ))}

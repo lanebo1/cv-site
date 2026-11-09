@@ -1,8 +1,4 @@
-"use client";
-
 import { CONTACTS, FINALE } from "@/lib/content";
-import { SceneBlobs } from "./blobs";
-import { Magnetic } from "./magnetic";
 import {
   IconDownload,
   IconGitHub,
@@ -11,6 +7,10 @@ import {
   IconTelegram,
 } from "./icons";
 
+/*
+ * Финал: ночная заливка, statement «Пойдём строить?», контакты рядами,
+ * resume вдавленной secondary. Футер закрывает страницу юридической строкой.
+ */
 const LINKS = [
   {
     href: CONTACTS.telegramUrl,
@@ -38,85 +38,41 @@ const LINKS = [
   },
 ];
 
-/* финальный кадр: тёмная сцена с оранжевым свечением */
 export function Footer() {
   return (
-    <section
-      id="contacts"
-      className="scene-dark relative scroll-mt-24 overflow-hidden"
-    >
-      <SceneBlobs
-        blobs={[
-          {
-            size: 30,
-            color: "rgba(249, 115, 22, 0.85)",
-            opacity: 0.35,
-            anim: "a",
-            top: "-8rem",
-            right: "-8rem",
-          },
-          {
-            size: 26,
-            color: "rgba(251, 191, 36, 0.8)",
-            opacity: 0.28,
-            anim: "b",
-            duration: 28,
-            bottom: "-8rem",
-            left: "-8rem",
-          },
-        ]}
-      />
-
-      <div className="relative mx-auto w-full max-w-5xl px-5 py-24 sm:px-8 sm:py-32">
-        <p className="font-mono text-xs text-stone-500">финальный кадр</p>
-        <h2 className="text-flame mt-6 font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.95] font-bold tracking-tight uppercase text-balance">
+    <section id="contacts" className="night scroll-mt-24">
+      <div className="container border-t-[3px] border-night-ink pt-14 pb-8 sm:pt-20">
+        <h2 className="text-[clamp(3rem,8vw,7rem)] leading-[1.0]">
           {FINALE.headline}
         </h2>
-        <p className="mt-6 max-w-xl text-sm leading-relaxed text-stone-300 sm:text-base">
+        <p className="lead mt-6 max-w-[52ch] text-night-muted">
           {FINALE.subline}
         </p>
 
-        <div className="mt-12 flex flex-wrap items-center gap-4">
+        <div className="mt-10">
+          <a href={CONTACTS.resume} download className="btn-ghost">
+            <IconDownload className="size-4 shrink-0" />
+            Скачать резюме (PDF)
+          </a>
+        </div>
+
+        <ul className="mt-12 grid gap-x-8 gap-y-2 border-t border-night-line pt-6 sm:grid-cols-2">
           {LINKS.map((link) => (
-            <Magnetic key={link.label}>
+            <li key={link.label}>
               <a
                 href={link.href}
-                className="group inline-flex items-center gap-3 rounded-md border border-white/15 bg-white/[0.04] px-5 py-3 transition-colors hover:border-orange-400/60"
+                className="u-link flex items-center gap-3 py-2 text-night-ink"
               >
-                <link.icon className="size-4 text-stone-400 transition-colors group-hover:text-amber-400" />
-                <span className="text-sm">
-                  <span className="block font-mono text-[10px] text-stone-500">
-                    {link.label}
-                  </span>
-                  <span className="block transition-colors group-hover:text-amber-300">
-                    {link.value}
-                  </span>
-                </span>
+                <link.icon className="size-4 shrink-0 text-night-muted" />
+                <span className="text-sm text-night-muted">{link.label}</span>
+                <span className="text-md">{link.value}</span>
               </a>
-            </Magnetic>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-10">
-          <Magnetic>
-            <a
-              href={CONTACTS.resume}
-              download
-              className="btn-flame inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-medium"
-            >
-              <IconDownload className="size-4" />
-              Скачать резюме (PDF)
-            </a>
-          </Magnetic>
-        </div>
-
-        <div className="mt-20 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-6">
-          <p className="font-mono text-[11px] text-stone-500">
-            © 2026 {CONTACTS.name}
-          </p>
-          <p className="font-mono text-[11px] text-stone-500">
-            next.js · tailwind · framer-motion
-          </p>
+        <div className="mt-16 flex flex-wrap justify-between gap-2 border-t border-night-line pt-6">
+          <p className="text-sm text-night-muted">© 2026 {CONTACTS.name}</p>
         </div>
       </div>
     </section>
