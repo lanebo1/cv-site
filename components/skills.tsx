@@ -38,7 +38,8 @@ export function Skills() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        {/* 2 колонки уже от 360px: одна на всю ширину выглядит жидко */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-8 lg:grid-cols-4">
           {COLUMNS.map((groups, c) => (
             <dl
               key={c}
