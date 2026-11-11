@@ -1,3 +1,4 @@
+import { Field } from "@/components/field";
 import { Nav } from "@/components/nav";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { Hero } from "@/components/hero";
@@ -8,15 +9,21 @@ import { Skills } from "@/components/skills";
 import { Education } from "@/components/education";
 import { Footer } from "@/components/footer";
 
+/*
+ * Каркас: поле (canvas + аврора) — фиксированный фон под всей страницей,
+ * над ним стекло: command-bar нав и стеклянные панели секций.
+ * Справа — вертикальный scroll-progress rail (сохранён).
+ */
 export default function Home() {
   return (
     <>
       <a href="#main" className="skip">
         Перейти к содержимому
       </a>
+      <Field />
       <Nav />
       <ScrollProgress />
-      <main id="main" className="flex-1">
+      <main id="main" className="page-content flex-1">
         <Hero />
         <Experience />
         <Projects />

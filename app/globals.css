@@ -1,12 +1,12 @@
-/* Hallmark · shape: Field hero, ledger rows, vertical motion rhythm · genre: modern-minimal · theme: Cobalt (by request) · redesign: full (second pass; Formwork retired)
- * hero: Field (type-led over a dot-field ground) · nav: paper hairline bar · footer: paper-2 band close · imagery: none · signature: the vertical rail — full-page scroll rail, top-down marquee, drift downward
- * cobalt: restrained · display Golos Text 700 caps (Familjen Grotesk ships no Cyrillic; weight raised per owner: fat, dense, caps) · body IBM Plex Sans · outlier JetBrains Mono on machine values only
- * motion: owner asked the old movement back along a vertical axis — scroll rail, top-down marquee, count-up, typewriter, magnetic keys, reveals downward; reduced motion degrades all of it to the composed still
- * axes: light/grotesk-sans/cool · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R3 V4 · weakest: R, the owner asked the old decoration back; kept it to one accent family and made every loop pause, so the page still reads exact */
-/* Hallmark · waive 29 · blurred cobalt orbs drift behind sections · explicit owner request, the old blob fields returned along a vertical drift */
-/* Hallmark · answered F4 · hero carries the one cobalt key; every other action is a key-face key */
-/* Hallmark · dropped #experience · the hero scroll-cue anchor is gone with the cue; the nav and its section carry it */
+/* Hallmark · shape: one continuous ASCII field (canvas) under the whole page, glass panels above it · genre: modern-minimal · theme: Cobalt (by request) · redesign: full (third pass; the blob pass is retired — the signature is the generated ASCII field again)
+ * field: variant A — ONE fixed viewport canvas behind every section, flow streaming top→down for the whole page; raw ramp on the left resolving into braille on the right; deploy pulses run vertical lanes; pointer lens; 30 fps; pauses on hidden tab; DPR cap 2; reduced motion = one composed still
+ * glass: every content panel is glass (backdrop blur, paper alpha, hairline, cut corners kept) — the field shines THROUGH, nothing opaque covers it
+ * aurora: soft cobalt/blue radial washes breathing inside the field layer, under the glass, never over content
+ * cobalt: restrained · display Golos Text 700 (Familjen Grotesk ships no Cyrillic) · body IBM Plex Sans · outlier JetBrains Mono on machine values only
+ * STAMP — fixed deviation from theme: h1/h2/h3 set in CAPS (owner taste; theme says sentence case). Waived deliberately, recorded here.
+ * graphite: one band per page (achievements); cobalt under 5% of a screen outside the field; no gradient buttons, no pills, no warm accents
+ * motion: downward reveals, key lift/sink, drawn-once connectors, count-up, vertical marquee, typewriter; reduced motion degrades all of it to the composed still · v3.0.0 */
+/* Hallmark · dropped #experience, onViewportEnter={() => setActive(i)} · the blob pass is retired with a full rewrite: hero scroll-cue anchor is gone (nav carries #experience), опыт теперь таблица-API без sticky-колонки работодателя */
 @import "tailwindcss";
 @import "./tokens.css";
 @import "./base.css" layer(base);
@@ -20,7 +20,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* --- Дисплей: капс, жирный, плотный --- */
+/* --- Заголовки: капс (отклонение от sentence case — вкус владельца, см. штамп) --- */
 
 h1,
 h2,
@@ -28,7 +28,186 @@ h3 {
   text-transform: uppercase;
 }
 
-/* --- Кнопки-клавиши: нижняя кромка 3px, подъём на hover, вдавливание на press --- */
+/* ============================================================
+   ПОЛЕ: один сквозной canvas-фон на всю страницу + аврора
+   ============================================================ */
+
+.field-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* фолбэк до загрузки шрифта: точечная сетка по ячейкам 8x16 */
+  background-image: radial-gradient(
+    var(--color-glyph-2) 0.9px,
+    transparent 1.3px
+  );
+  background-size: var(--cell-w) var(--cell-h);
+}
+
+:root.has-field .field-layer {
+  background-image: none;
+}
+
+.field-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* Аврора: мягкие кобальтовые washes В поле, под стеклом. Медленное дыхание
+   по вертикали; transform/opacity только. */
+
+.aurora {
+  position: absolute;
+  inset: 0;
+}
+
+.aurora i {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.aurora__a {
+  width: 56rem;
+  height: 40rem;
+  top: -12rem;
+  left: -14rem;
+  background: radial-gradient(circle, var(--aurora-1) 0%, transparent 70%);
+  animation: aurora-drift-a 46s ease-in-out infinite alternate;
+}
+
+.aurora__b {
+  width: 44rem;
+  height: 52rem;
+  top: 22%;
+  right: -16rem;
+  background: radial-gradient(circle, var(--aurora-2) 0%, transparent 70%);
+  animation: aurora-drift-b 58s ease-in-out infinite alternate;
+}
+
+.aurora__c {
+  width: 52rem;
+  height: 36rem;
+  bottom: -10rem;
+  left: 24%;
+  background: radial-gradient(circle, var(--aurora-3) 0%, transparent 70%);
+  animation: aurora-drift-a 64s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes aurora-drift-a {
+  0% {
+    transform: translateY(-4rem) translateX(1rem) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(7rem) translateX(-2rem) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes aurora-drift-b {
+  0% {
+    transform: translateY(6rem) translateX(-1rem) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5rem) translateX(2rem) scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+/* Контент всегда НАД полем */
+
+.page-content {
+  position: relative;
+  z-index: 10;
+}
+
+main > section {
+  margin-block-end: var(--section-gap);
+}
+
+/* от hero (div, не section) до первой панели — свой зазор */
+main > section:first-of-type {
+  margin-block-start: var(--section-gap-s);
+}
+
+/* ============================================================
+   СТЕКЛО: панели над полем, сквозь которые оно просвечивает
+   ============================================================ */
+
+.panel {
+  border: var(--rule-hair)
+    color-mix(in oklab, var(--color-rule) 85%, transparent);
+  border-radius: var(--radius-card);
+  background: color-mix(in oklab, var(--color-paper) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-lg);
+}
+
+.panel--tint {
+  background: color-mix(in oklab, var(--color-paper-2) 78%, transparent);
+}
+
+.panel--graphite {
+  border-color: color-mix(in oklab, var(--color-graphite-2) 90%, transparent);
+  background: color-mix(in oklab, var(--color-graphite) 84%, transparent);
+  color: var(--color-graphite-ink);
+}
+
+.panel--graphite :focus-visible {
+  outline-color: var(--color-accent-2);
+}
+
+/* срезанные углы панелей: два противоположных, фолбэк — радиус */
+
+@supports (corner-shape: bevel) {
+  .panel {
+    border-radius: var(--cut-l) 4px var(--cut-l) 4px;
+    corner-shape: bevel round bevel round;
+  }
+
+  .panel--graphite {
+    border-radius: 4px var(--cut-l) 4px var(--cut-l);
+    corner-shape: round bevel round bevel;
+  }
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    padding: var(--space-xl);
+  }
+}
+
+/* --- Внутренние слои панелей (стекло не вкладывается в стекло) --- */
+
+.inner {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-input);
+  background: color-mix(in oklab, var(--color-paper-3) 55%, transparent);
+}
+
+.inner--graphite {
+  border-color: var(--color-graphite-2);
+  background: color-mix(in oklab, var(--color-graphite-2) 55%, transparent);
+}
+
+@supports (corner-shape: bevel) {
+  .inner {
+    border-radius: var(--cut) 3px var(--cut) 3px;
+    corner-shape: bevel round bevel round;
+  }
+}
+
+/* ============================================================
+   КНОПКИ-КЕЙКАПЫ: нижняя кромка 3px, lift/sink
+   ============================================================ */
 
 .btn-key {
   display: inline-flex;
@@ -67,14 +246,6 @@ h3 {
   outline-offset: 2px;
 }
 
-.btn-key:disabled,
-.btn-key[aria-disabled="true"] {
-  opacity: 0.55;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: var(--shadow-key-press);
-}
-
 .btn-key--primary {
   background: var(--color-accent);
   border-color: var(--color-accent-edge);
@@ -92,12 +263,21 @@ h3 {
   box-shadow: var(--shadow-key-press);
 }
 
-/* --- Панели и чипы со срезанными углами (фолбэк — обычный радиус) --- */
+.btn-key:disabled,
+.btn-key[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-key-press);
+}
+
+/* ============================================================
+   СРЕЗ-ЧИПЫ, КОМАНДА С COPY-КЛЮЧОМ (как curl-чип темплейта)
+   ============================================================ */
 
 .cut {
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-card);
-  background: var(--color-paper);
 }
 
 @supports (corner-shape: bevel) {
@@ -112,10 +292,79 @@ h3 {
   padding: var(--space-3xs) var(--space-xs);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-input);
-  background: var(--color-paper-2);
+  background: color-mix(in oklab, var(--color-paper-2) 70%, transparent);
   color: var(--color-ink-2);
   font-size: var(--text-sm);
   line-height: 1.4;
+}
+
+.curl {
+  display: flex;
+  align-items: stretch;
+  max-width: 100%;
+  min-height: 44px;
+  border: var(--rule-hair) solid var(--color-rule-2);
+  border-radius: var(--radius-input);
+  background: color-mix(in oklab, var(--color-paper) 88%, transparent);
+  overflow: hidden;
+}
+
+@supports (corner-shape: bevel) {
+  .curl {
+    border-radius: var(--cut) 3px var(--cut) 3px;
+    corner-shape: bevel round bevel round;
+  }
+}
+
+.curl__cmd {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--cell-w);
+  padding: 0 var(--space-md);
+  font: 400 13.333px/1 var(--font-outlier);
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  mask-image: linear-gradient(to left, transparent, var(--color-ink) var(--space-lg));
+  -webkit-mask-image: linear-gradient(to left, transparent, var(--color-ink) var(--space-lg));
+}
+
+.curl__p {
+  color: var(--color-muted);
+}
+
+.curl__copy {
+  flex: none;
+  min-width: 112px;
+  padding: 0 var(--space-md);
+  border: 0;
+  border-left: var(--rule-hair) solid var(--color-rule-2);
+  background: color-mix(in oklab, var(--color-paper-2) 88%, transparent);
+  color: var(--color-ink);
+  font: 500 var(--text-sm)/1 var(--font-display);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    color var(--dur-short) var(--ease-out);
+}
+
+.curl__copy:hover {
+  background: var(--color-paper-3);
+}
+
+.curl__copy:active {
+  background: var(--color-rule);
+}
+
+.curl__copy:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+.curl.is-done .curl__copy {
+  color: var(--color-accent);
 }
 
 /* --- Ссылки: кобальтовое подчёркивание на hover --- */
@@ -125,7 +374,9 @@ h3 {
   text-decoration-thickness: 1px;
   text-decoration-color: var(--color-rule-2);
   text-underline-offset: 0.2em;
-  transition: text-decoration-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+  transition:
+    text-decoration-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out);
 }
 
 .u-link:hover {
@@ -144,6 +395,7 @@ h3 {
   background: var(--color-ink);
   color: var(--color-paper);
   text-decoration: none;
+  border-radius: var(--radius-input);
 }
 
 .skip:focus-visible {
@@ -152,115 +404,293 @@ h3 {
   outline-offset: 2px;
 }
 
-/* --- Графитовая полоса (достижения): тёмный материал темы --- */
+/* --- Графит (полоса достижений): материал темплейта --- */
 
 .graphite {
   background: var(--color-graphite);
   color: var(--color-graphite-ink);
 }
 
-.graphite :focus-visible {
-  outline-color: var(--color-accent-2);
+/* ============================================================
+   ОПЫТ: таблица, которая есть API
+   ============================================================ */
+
+.table-wrap {
+  overflow-x: auto;
 }
 
-/* --- ASCII-поле без скрипта: точечная сетка по ячейкам 8x16, редкие кобальтовые глифы --- */
+.api-table {
+  width: 100%;
+  min-width: 46rem;
+  border-collapse: collapse;
+}
 
-.field-bg {
+.api-table th,
+.api-table td {
+  padding: var(--space-md) var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.api-table thead th {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  border-bottom-color: var(--color-rule-2);
+  padding-block: var(--space-xs);
+}
+
+.api-table tbody tr.is-on > td {
+  background: var(--color-accent-wash);
+}
+
+.api-table tbody tr:last-child > td {
+  border-bottom: 0;
+}
+
+/* ============================================================
+   ПРОЕКТЫ: mapping input→output, hairline-elbow между строками
+   ============================================================ */
+
+.map {
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding-block: var(--space-xl);
+}
+
+.map:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.map:last-of-type {
+  padding-bottom: 0;
+}
+
+.map__panes {
+  position: relative;
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 48rem) {
+  .map__panes {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+.map__file {
+  /* метка панели — Grotesk, никогда mono (mono только машинные значения) */
+  font: 500 var(--text-sm)/1.4 var(--font-display);
+  color: var(--color-muted);
+}
+
+.map__pane .map__file {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.map__row {
+  padding-block: var(--space-sm);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.map__row + .map__row {
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+/* волосяные локти: соединители строк input→output */
+
+.wire-c {
+  --wire: var(--color-rule-2);
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+  opacity: 0.7;
+  clip-path: inset(0 100% 0 0);
+  transition:
+    clip-path 900ms var(--ease-out) calc(var(--n, 0) * 110ms),
+    opacity var(--dur-short) var(--ease-out);
 }
 
-.field-bg::before {
+.wire-c > i {
+  position: absolute;
+  display: block;
+  border: 0 solid var(--wire);
+}
+
+.wire-c__h,
+.wire-c__node {
+  background: var(--wire);
+}
+
+.wire-c__e--tr {
+  border-top-width: 1px !important;
+  border-right-width: 1px !important;
+  border-top-right-radius: var(--r, 10px);
+}
+
+.wire-c__e--bl {
+  border-bottom-width: 1px !important;
+  border-left-width: 1px !important;
+  border-bottom-left-radius: var(--r, 10px);
+}
+
+.wire-c__e--br {
+  border-bottom-width: 1px !important;
+  border-right-width: 1px !important;
+  border-bottom-right-radius: var(--r, 10px);
+}
+
+.wire-c__e--tl {
+  border-top-width: 1px !important;
+  border-left-width: 1px !important;
+  border-top-left-radius: var(--r, 10px);
+}
+
+.map.is-wired .wire-c {
+  clip-path: inset(0 -8px 0 0);
+}
+
+/* ============================================================
+   ДОСТИЖЕНИЯ: timeline-ruler на графите
+   ============================================================ */
+
+.ruler {
+  position: relative;
+  height: 56px;
+}
+
+.ruler::before {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  top: -50%;
-  height: 200%;
-  background-image:
-    radial-gradient(var(--color-glyph-4) 1px, transparent 1.4px),
-    radial-gradient(var(--color-rule-2) 1px, transparent 1.4px);
-  background-size:
-    calc(var(--cell-w) * 8) calc(var(--cell-h) * 8),
-    var(--cell-w) var(--cell-h);
-  background-position: 0 0, 0 0;
-  animation: field-drift 48s linear infinite;
+  top: 50%;
+  height: var(--rule-hair);
+  background: color-mix(in oklab, var(--color-graphite-glyph-1) 70%, transparent);
 }
 
-/* вертикальный дрейф поля: сдвиг на целое число ячеек — бесшовный цикл */
-@keyframes field-drift {
-  to {
-    transform: translateY(calc(var(--cell-h) * -8));
-  }
-}
-
-/* --- Blob-фоны: размытые кобальтовые пятна, дрейф ВДОЛЬ страницы --- */
-
-.blob {
+.ruler__tick {
   position: absolute;
-  border-radius: 9999px;
-  filter: blur(120px);
-  will-change: transform;
+  left: calc(var(--at) * 100%);
+  top: 50%;
 }
 
-@keyframes drift-a {
-  0% {
-    transform: translateY(-6rem) translateX(1rem) scale(1);
-  }
-  100% {
-    transform: translateY(8rem) translateX(-2rem) scale(1.08);
-  }
+.ruler__tick i {
+  display: block;
+  width: var(--rule-hair);
+  height: 16px;
+  margin-top: calc(-1 * var(--space-xs));
+  background: var(--color-accent-2);
 }
 
-@keyframes drift-b {
-  0% {
-    transform: translateY(8rem) translateX(-1rem) scale(1.06);
-  }
-  100% {
-    transform: translateY(-7rem) translateX(2rem) scale(0.94);
-  }
+.ruler__tick b {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  transform: translateX(-50%);
+  font: 500 13.333px/1 var(--font-outlier);
+  color: var(--color-graphite-muted);
 }
 
-/* --- Каретка печатающей машинки: пауза вместе с ролами --- */
+/* ============================================================
+   НАВЫКИ: рабочий control — большая цифра + meter из 50 ячеек
+   ============================================================ */
 
-.type-caret {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  margin-left: 0.15em;
-  vertical-align: text-bottom;
-  background: var(--color-accent);
-  animation: caret-blink 1.05s steps(1) infinite;
+.meter {
+  font: 500 13.333px/1.9 var(--font-outlier);
+  color: color-mix(in oklab, var(--color-rule-2) 90%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
-@keyframes caret-blink {
-  0%,
-  55% {
-    opacity: 1;
-  }
-  56%,
-  100% {
-    opacity: 0;
-  }
+.meter b {
+  font-weight: 500;
+  color: var(--color-accent);
 }
 
-.roles-line:hover .type-caret,
-.roles-line:focus-within .type-caret {
-  animation-play-state: paused;
+/* ============================================================
+   ЛЕГЕНДА ПОЛЯ: как читать символы (как легенда на карте погоды)
+   ============================================================ */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-sm) var(--space-md);
+  margin: 0;
+  padding: var(--space-xs) var(--space-md);
+  list-style: none;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-input);
+  background: color-mix(in oklab, var(--color-paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-card);
+  font: 500 var(--text-sm)/1.4 var(--font-display);
+  color: var(--color-ink-2);
+  white-space: nowrap;
 }
 
-/* --- ВЕРТИКАЛЬНЫЙ marquee навыков: колонки текут сверху вниз --- */
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cell-w);
+}
+
+.legend code {
+  font: 500 13.333px/1 var(--font-outlier);
+}
+
+.legend__raw {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   НАГ: command-bar
+   ============================================================ */
+
+.site-nav {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-sticky-nav);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: color-mix(in oklab, var(--color-paper) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  backdrop-filter: blur(14px) saturate(1.12);
+}
+
+/* ============================================================
+   ВЕРТИКАЛЬНЫЙ marquee навыков: колонки текут сверху вниз
+   ============================================================ */
 
 .v-marquee {
   position: relative;
   height: clamp(240px, 40vh, 420px);
   overflow: hidden;
-  /* фейд узкий и в px: заголовок группы (1.5em) проходит кромку за миг,
-     а не висит в полупрозрачной зоне в 50+px */
-  mask-image: linear-gradient(180deg, transparent 0, var(--color-ink) 36px, var(--color-ink) calc(100% - 36px), transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, var(--color-ink) 36px, var(--color-ink) calc(100% - 36px), transparent 100%);
+  /* фейд узкий и в px: заголовок группы (1.5em) проходит кромку за миг */
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    var(--color-ink) 36px,
+    var(--color-ink) calc(100% - 36px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    var(--color-ink) 36px,
+    var(--color-ink) calc(100% - 36px),
+    transparent 100%
+  );
 }
 
 .v-marquee-track {
@@ -285,11 +715,14 @@ h3 {
   }
 }
 
-/* --- Утилиты --- */
+/* ============================================================
+   Утилиты
+   ============================================================ */
 
 .scrollbar-none {
   scrollbar-width: none;
 }
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
@@ -301,14 +734,13 @@ h3 {
     scroll-behavior: auto;
   }
 
-  .field-bg::before,
-  .blob,
-  .type-caret {
+  .aurora i {
     animation: none !important;
   }
 
   .btn-key,
-  .u-link {
+  .u-link,
+  .curl__copy {
     transition: none;
   }
 
@@ -334,4 +766,37 @@ h3 {
   .v-dup {
     display: none;
   }
+
+  .wire-c {
+    clip-path: none;
+    transition: none;
+  }
+}
+
+/* --- Каретка печатающей машинки ролей: пауза на hover/focus --- */
+
+.type-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: var(--color-accent);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.roles-line:hover .type-caret,
+.roles-line:focus-within .type-caret {
+  animation-play-state: paused;
 }

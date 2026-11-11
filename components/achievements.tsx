@@ -40,12 +40,18 @@ function Counter({
 }
 
 /*
- * Достижения: графитовая полоса. Фигуры считаются вверх при входе в кадр,
- * награды — ряды на волосяных линейках графита.
+ * ДОСТИЖЕНИЯ = «timeline-ruler» на графитовой полосе (единственная тёмная
+ * полоса страницы): большие цифры 60px+ табличные (count-up) в синтакс-тинте
+ * accent-2, линейка с реальными засечками по наградам, награды — ruled rows.
  */
 export function Achievements() {
   return (
-    <Section id="achievements" title="Достижения" band="graphite">
+    <Section
+      id="achievements"
+      title="Достижения"
+      band="graphite"
+      dark
+    >
       <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-4">
         {STATS.map((stat, i) => (
           <div
@@ -56,7 +62,7 @@ export function Achievements() {
                 : "pr-4 sm:pr-8"
             }
           >
-            <span className="num font-display text-[2.5rem] leading-none font-bold text-accent-2 sm:text-[3.5rem]">
+            <span className="num font-display text-[3.75rem] leading-none font-bold text-accent-2 sm:text-[4.5rem]">
               <Counter
                 to={stat.value}
                 decimals={stat.decimals}
@@ -68,17 +74,36 @@ export function Achievements() {
         ))}
       </div>
 
+      {/* линейка-рулетка: засечка на каждую награду, порядок хронологии */}
       <Reveal>
-        <ul className="mt-14 border-t border-graphite-glyph-1/60">
-          {AWARDS.map((award) => (
+        <div
+          className="ruler mt-14"
+          aria-hidden="true"
+        >
+          {AWARDS.map((award, i) => (
+            <span
+              key={award}
+              className="ruler__tick"
+              style={{ "--at": AWARDS.length > 1 ? i / (AWARDS.length - 1) : 0 } as React.CSSProperties}
+            >
+              <i />
+              <b>{String(i + 1).padStart(2, "0")}</b>
+            </span>
+          ))}
+        </div>
+        <ol className="mt-8 border-t border-graphite-glyph-1/60">
+          {AWARDS.map((award, i) => (
             <li
               key={award}
-              className="border-b border-graphite-glyph-1/60 py-4 text-md text-graphite-ink"
+              className="flex items-baseline gap-4 border-b border-graphite-glyph-1/60 py-4 text-md text-graphite-ink"
             >
+              <span className="num shrink-0 font-outlier text-sm text-accent-2">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               {award}
             </li>
           ))}
-        </ul>
+        </ol>
       </Reveal>
     </Section>
   );

@@ -1,6 +1,7 @@
 import { CONTACTS, FINALE } from "@/lib/content";
-import { SceneBlobs } from "./blobs";
+import { Section } from "./section";
 import { Magnetic } from "./magnetic";
+import { CopyChip } from "./copy-chip";
 import {
   IconDownload,
   IconGitHub,
@@ -37,68 +38,59 @@ const LINKS = [
 ];
 
 /*
- * Финал: tint-полоса paper-2 (вторая из двух допустимых), statement капсом,
- * контакты — клавиши с магнитом, resume — кобальтовая primary-клавиша.
+ * Финал: стеклянная tint-полоса paper-2 (вторая допустимая), statement
+ * капсом, primary-клавиша резюме, контакты — ruled rows, почта — срез-чип
+ * с рабочим copy-ключом.
  */
 export function Footer() {
   return (
-    <section id="contacts" className="relative scroll-mt-24 overflow-hidden bg-paper-2">
-      <SceneBlobs
-        blobs={[
-          {
-            size: 30,
-            color: "oklch(76% 0.13 254 / 0.45)",
-            opacity: 0.4,
-            anim: "b",
-            top: "-8rem",
-            right: "-8rem",
-          },
-          {
-            size: 26,
-            color: "oklch(60% 0.13 257 / 0.35)",
-            opacity: 0.3,
-            anim: "a",
-            duration: 30,
-            bottom: "-8rem",
-            left: "-8rem",
-          },
-        ]}
-      />
-
-      <div className="container relative border-t border-rule-2 pt-14 pb-8 sm:pt-20">
-        <h2 className="text-[clamp(2.75rem,7vw,6.5rem)] leading-[1.02]">
-          {FINALE.headline}
-        </h2>
-        <p className="lead mt-6 max-w-[52ch] text-ink-2">{FINALE.subline}</p>
-
-        <div className="mt-10">
-          <Magnetic>
-            <a href={CONTACTS.resume} download className="btn-key btn-key--primary">
-              <IconDownload className="size-4 shrink-0" />
-              Скачать резюме (PDF)
-            </a>
-          </Magnetic>
+    <Section id="contacts" band="tint">
+      <div className="grid items-end gap-x-14 gap-y-10 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+        <div>
+          <h2 className="text-[clamp(2.75rem,7vw,6.5rem)] leading-[1.02]">
+            {FINALE.headline}
+          </h2>
+          <p className="lead mt-6 max-w-[52ch] text-ink-2">
+            {FINALE.subline}
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Magnetic>
+              <a
+                href={CONTACTS.resume}
+                download
+                className="btn-key"
+              >
+                <IconDownload className="size-4 shrink-0" />
+                Скачать резюме (PDF)
+              </a>
+            </Magnetic>
+          </div>
+          <div className="mt-5 max-w-[52ch]">
+            <CopyChip value={CONTACTS.email} />
+          </div>
         </div>
 
-        <ul className="mt-12 grid gap-x-8 gap-y-1 border-t border-rule pt-6 sm:grid-cols-2">
+        <ul className="border-t border-rule">
           {LINKS.map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}
-                className="u-link flex items-center gap-3 py-2"
+                className="u-link flex items-baseline gap-3 border-b border-rule py-3"
               >
-                <link.icon className="size-4 shrink-0 text-muted" />
+                <link.icon className="size-4 shrink-0 self-center text-muted" />
                 <span className="text-sm text-muted">{link.label}</span>
-                <span className="text-md">{link.value}</span>
+                <span className="ml-auto num font-outlier text-sm">
+                  {link.value}
+                </span>
               </a>
             </li>
           ))}
         </ul>
-
-        <div className="mt-16 flex flex-wrap justify-between gap-2 border-t border-rule pt-6">
-          <p className="text-sm text-muted">© 2026 {CONTACTS.name}</p>
-        </div>
       </div>
-    </section>
+
+      <p className="mt-14 border-t border-rule pt-6 text-sm text-muted">
+        © 2026 {CONTACTS.name}
+      </p>
+    </Section>
   );
 }
