@@ -100,7 +100,8 @@ export function Hero() {
         </p>
 
         <div className="mt-auto pb-12 sm:pb-16">
-          <h1 className="text-[clamp(3.75rem,11vw,9rem)] leading-[1.0] tracking-display text-balance">
+          {/* floor 2.75rem: ЕФИМОВИЧ (5.8em caps) держит целую строку от 320px; выше ~400px ведёт 11vw */}
+          <h1 className="text-[clamp(2.75rem,11vw,9rem)] leading-[1.0] tracking-display text-balance">
             Кирилл
             <br />
             Ефимович
