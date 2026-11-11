@@ -1,4 +1,5 @@
 import { Nav } from "@/components/nav";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { Hero } from "@/components/hero";
 import { Experience } from "@/components/experience";
 import { Projects } from "@/components/projects";
@@ -14,6 +15,7 @@ export default function Home() {
         Перейти к содержимому
       </a>
       <Nav />
+      <ScrollProgress />
       <main id="main" className="flex-1">
         <Hero />
         <Experience />

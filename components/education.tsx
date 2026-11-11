@@ -2,10 +2,11 @@
 
 import { EDUCATION } from "@/lib/content";
 import { Section } from "./section";
+import { Reveal } from "./reveal";
 
 /*
- * Образование: split. Слева вуз, языки и студенческое на линейках,
- * справа плита ВКР с жёсткой тенью. Подсветка-маркер убрана: бетон не движется.
+ * Образование: split. Слева вуз, языки на линейках, студенческое;
+ * справа панель ВКР со срезанными углами. GPA — машинное значение на mono.
  */
 export function Education() {
   const { thesis } = EDUCATION;
@@ -18,9 +19,10 @@ export function Education() {
           <p className="num mt-2 text-sm text-muted">{EDUCATION.years}</p>
           <p className="mt-1 text-md text-ink-2">
             {EDUCATION.program}, {EDUCATION.course},{" "}
-            <span className="num font-medium">{EDUCATION.gpa}</span>
+            <span className="num font-outlier text-accent">
+              {EDUCATION.gpa}
+            </span>
           </p>
-
           <dl className="mt-10 border-t border-rule">
             {EDUCATION.languages.map((lang) => (
               <div
@@ -32,21 +34,22 @@ export function Education() {
               </div>
             ))}
           </dl>
-
           <p className="mt-6 max-w-[52ch] text-sm text-ink-2">
             {EDUCATION.studentLife}
           </p>
         </div>
 
-        <div className="plate self-start p-6 sm:p-10">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="text-sm font-medium">{thesis.title}</p>
-            <p className="num text-sm text-muted">{thesis.period}</p>
+        <Reveal>
+          <div className="cut self-start p-6 sm:p-10">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p className="text-sm font-medium">{thesis.title}</p>
+              <p className="num text-sm text-muted">{thesis.period}</p>
+            </div>
+            <p className="mt-4 text-xl leading-snug font-medium sm:text-2xl">
+              {thesis.text}
+            </p>
           </div>
-          <p className="mt-4 text-xl leading-snug font-medium sm:text-2xl">
-            {thesis.text}
-          </p>
-        </div>
+        </Reveal>
       </div>
     </Section>
   );

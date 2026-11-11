@@ -1,10 +1,11 @@
 import { PROJECTS, type Project } from "@/lib/content";
 import { Section } from "./section";
+import { Reveal } from "./reveal";
 import { IconGitHub } from "./icons";
 
 /*
- * Проекты: индекс из четырёх кейсов. Имя капсом и мета-колонка слева,
- * описание, итог, стек и код справа. Ряды на волосяных линейках.
+ * Проекты: индекс из четырёх кейсов на волосяных линейках, имя капсом,
+ * итог выделен, репозиторий — машинное значение на mono.
  */
 function CaseRow({ project }: { project: Project }) {
   return (
@@ -17,12 +18,10 @@ function CaseRow({ project }: { project: Project }) {
       <div>
         <p className="text-sm font-medium">{project.role}</p>
         <p className="mt-3 max-w-[65ch] text-ink-2">{project.description}</p>
-        <p className="mt-5 text-md font-medium">
-          {project.result}
-        </p>
+        <p className="mt-5 text-md font-medium">{project.result}</p>
         <ul className="mt-4 flex flex-wrap gap-1.5">
           {project.stack.map((tech) => (
-            <li key={tech} className="tag">
+            <li key={tech} className="chip">
               {tech}
             </li>
           ))}
@@ -30,7 +29,7 @@ function CaseRow({ project }: { project: Project }) {
         <a
           href={project.link.href}
           aria-label={`${project.name} на GitHub`}
-          className="u-link mt-5 inline-flex items-center gap-1.5 text-sm"
+          className="u-link mt-5 inline-flex items-center gap-1.5 font-outlier text-sm"
         >
           <IconGitHub className="size-4 shrink-0" />
           github.com/…/{project.link.label}
@@ -45,7 +44,9 @@ export function Projects() {
     <Section id="projects" title="Проекты">
       <div className="flex flex-col">
         {PROJECTS.map((project) => (
-          <CaseRow key={project.name} project={project} />
+          <Reveal key={project.name}>
+            <CaseRow project={project} />
+          </Reveal>
         ))}
       </div>
     </Section>

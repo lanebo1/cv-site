@@ -1,16 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Onest, Oswald } from "next/font/google";
+import { Golos_Text, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const oswald = Oswald({
-  variable: "--font-oswald",
+const golos = Golos_Text({
+  variable: "--font-golos",
   subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "700"],
   display: "swap",
 });
 
-const onest = Onest({
-  variable: "--font-onest",
+const plex = IBM_Plex_Sans({
+  variable: "--font-plex",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500"],
   display: "swap",
@@ -23,14 +30,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#b1aba2",
+  themeColor: "#fbfcfe",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${oswald.variable} ${onest.variable} h-full antialiased`}
+      className={`${golos.variable} ${plex.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

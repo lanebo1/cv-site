@@ -2,10 +2,14 @@
 
 import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
 
+/*
+ * Вертикальный прогресс скролла: рейл у правого края на всю высоту страницы.
+ * Заполняется сверху вниз; при reduced motion не рисуется вовсе.
+ */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const reduce = useReducedMotion();
-  const scaleX = useSpring(scrollYProgress, {
+  const scaleY = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     restDelta: 0.001,
@@ -14,10 +18,14 @@ export function ScrollProgress() {
   if (reduce) return null;
 
   return (
-    <motion.div
+    <div
       aria-hidden="true"
-      className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-orange-500 via-amber-400 to-orange-400"
-      style={{ scaleX }}
-    />
+      className="fixed inset-y-0 right-3 z-[60] hidden w-[3px] bg-rule sm:block"
+    >
+      <motion.div
+        className="h-full w-full origin-top bg-accent"
+        style={{ scaleY }}
+      />
+    </div>
   );
 }

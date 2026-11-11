@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
-/* magnetic hover: кнопка мягко тянется к курсору (только мышь) */
+/* magnetic hover: клавиша мягко тянется к курсору (только мышь) */
 export function Magnetic({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
