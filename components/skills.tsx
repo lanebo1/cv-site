@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { SKILLS } from "@/lib/content";
 import { Section } from "./section";
+import { Reveal } from "./reveal";
 
 /* Группы разложены по четырём колонкам; смысловой порядок сохранён. */
 const COLUMNS: string[][] = [
@@ -12,10 +13,14 @@ const COLUMNS: string[][] = [
   ["Изучаю", "Софт"],
 ];
 
+const TOTAL = SKILLS.reduce((n, g) => n + g.items.length, 0);
+const METER_CELLS = 50;
+const FILL = Math.min(METER_CELLS, TOTAL);
+
 /*
- * ВЕРТИКАЛЬНЫЙ marquee: колонки навыков текут сверху вниз, соседние — в
- * противофазе. Пауза на hover и focus-within, видимая кнопка «Пауза»,
- * под reduced motion — статичные колонки без дубликата.
+ * НАВЫКИ = «working control»: результат одной большой цифрой (count-up
+ * не нужен — цифра статична и честна), meter из 50 mono-ячеек
+ * (ячейка = 1 технология) и вертикальный marquee (он правильный — сохранён).
  */
 export function Skills() {
   const [paused, setPaused] = useState(false);
@@ -24,9 +29,33 @@ export function Skills() {
     <Section
       id="skills"
       title="Навыки"
-      caption={`${SKILLS.reduce((n, g) => n + g.items.length, 0)} технологии в восьми группах`}
+      caption={`${TOTAL} технологии в ${SKILLS.length} группах`}
     >
-      <div>
+      <Reveal>
+        <div className="inner p-5 sm:p-8">
+          <div className="grid items-end gap-x-10 gap-y-6 md:grid-cols-[auto_minmax(0,1fr)]">
+            <p className="num font-display text-[3.75rem] leading-none font-bold text-accent sm:text-[5rem]">
+              {TOTAL}
+            </p>
+            <div>
+              {/* meter: 50 mono-ячеек, ячейка = 1 технология */}
+              <p
+                className="meter num"
+                role="img"
+                aria-label={`Meter из ${METER_CELLS} ячеек: ${FILL} заполнены, по ячейке на технологию`}
+              >
+                <b>{"▊".repeat(FILL)}</b>
+                {"·".repeat(METER_CELLS - FILL)}
+              </p>
+              <p className="mt-2 text-sm text-muted">
+                ячейка = 1 технология · {FILL} из {METER_CELLS}
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="mt-12">
         <div className="mb-8 flex justify-end">
           <button
             type="button"
