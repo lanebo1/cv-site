@@ -63,7 +63,10 @@ function Typewriter({ words }: { words: string[] }) {
  */
 export function Hero() {
   return (
-    <div id="top" className="relative flex min-h-[92svh] flex-col pt-14">
+    <div
+      id="top"
+      className="relative flex min-h-[92svh] flex-col pt-32 lg:pt-14"
+    >
       <div className="container relative flex flex-1 flex-col" data-field-calm>
         <p className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm text-muted">
           <span>{CONTACTS.city}</span>
