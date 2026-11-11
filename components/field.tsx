@@ -119,8 +119,9 @@ export function Field() {
     const BR_I = BRAILLE.map((g) => (g === " " ? -1 : GLYPHS.indexOf(g)));
     const TRAIL_I = GLYPHS.indexOf(TRAIL);
     const HEAD_I = GLYPHS.indexOf(HEAD);
-    /* уровень плотности → тинт: бледные у кромки, глубокий кобальт в ядре */
-    const TINT_OF = [0, 0, 0, 1, 1, 2, 3, 4, 4, 5];
+    /* уровень плотности → тинт: тёмный диапазон активнее — поле читается
+       с первого взгляда (glyph-2…accent-deep), бледный g1 не используется */
+    const TINT_OF = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
     const GG_OF = (lv: number) => (lv < 4 ? 6 : lv < 7 ? 7 : 8);
 
     let W = 0,
@@ -162,14 +163,18 @@ export function Field() {
       if (calmRoot) {
         const cr = calmRoot.getBoundingClientRect();
         calmTop = cr.top;
-        for (const el of Array.from(calmRoot.children)) {
-          const r = el.getBoundingClientRect();
+        /* глушим только непосредственно под текстовыми глифами: спускаемся
+           к «листьям» (элементы с собственным текстом), а не к целым блокам —
+           поля между строками и кнопками остаются живыми */
+        const leafRects: DOMRect[] = [];
+        collectLeafRects(calmRoot, leafRects);
+        for (const r of leafRects) {
           if (!r.width || !r.height) continue;
           relBoxes.push({
-            l: r.left - cr.left - 20,
-            r: r.right - cr.left + 28,
-            t: r.top - cr.top - 12,
-            b: r.bottom - cr.top + 12,
+            l: r.left - cr.left - 6,
+            r: r.right - cr.left + 8,
+            t: r.top - cr.top - 3,
+            b: r.bottom - cr.top + 5,
           });
         }
       }
@@ -199,6 +204,19 @@ export function Field() {
       calmBuiltAt = -1e9;
     }
 
+    /* «листья» — элементы с собственным текстовым узлом */
+    function collectLeafRects(root: Element, out: DOMRect[]) {
+      for (const el of Array.from(root.children)) {
+        const hasText = Array.from(el.childNodes).some(
+          (n) =>
+            n.nodeType === Node.TEXT_NODE &&
+            (n.textContent ?? "").trim() !== "",
+        );
+        if (hasText) out.push(el.getBoundingClientRect() as DOMRect);
+        else collectLeafRects(el, out);
+      }
+    }
+
     /* спокойный патч под текстом hero: rebuild при сдвиге >= полклетки */
     function rebuildCalm() {
       if (!calmRoot || !relBoxes.length) {
@@ -223,7 +241,7 @@ export function Field() {
               Math.max(bx.l + cr.left - px, 0, px - (bx.r + cr.left)),
               Math.max(bx.t + cr.top - py, 0, py - (bx.b + cr.top)),
             );
-            const k = d <= 0 ? 1 : Math.max(0, 1 - d / 64);
+            const k = d <= 0 ? 1 : Math.max(0, 1 - d / 22);
             if (k > m) m = k;
           }
           CALM[y * cols + x] = m * m * (3 - 2 * m);
@@ -259,7 +277,7 @@ export function Field() {
         const pl: number[] = [];
         for (const p of pulses) {
           const d = py - p.y * CH;
-          pl.push(Math.exp(-(d * d) / 25088)); /* sigma = 7 клеток */
+          pl.push(Math.exp(-(d * d) / 40000)); /* sigma ~ 9 клеток */
         }
         for (let x = 1; x < cols - 1; x++) {
           let v = fieldAt(x * CW, py, t);
@@ -267,7 +285,7 @@ export function Field() {
           if (lg > 0.01) {
             let pv = 0;
             for (let i = 0; i < pulses.length; i++) pv = Math.max(pv, pl[i]);
-            v += lg * (0.22 + pv * 0.75);
+            v += lg * (0.3 + pv * 0.95);
           }
           /* pointer-линза: поднимает шум вокруг курсора */
           if (k > 0.01) {
@@ -280,8 +298,9 @@ export function Field() {
             }
           }
           if (hasCalm) v *= 1 - CALM[y * cols + x] * 0.95;
-          /* сырьё слева реже, resolved справа плотнее */
-          const gate = 0.56 - 0.14 * (x / cols);
+          /* сырьё слева реже, resolved справа плотнее; gate низкий —
+             живых ячеек больше, поле доминирует над бумагой */
+          const gate = 0.44 - 0.12 * (x / cols);
           if (v < gate) continue;
           const lv = Math.min(
             9,
@@ -294,7 +313,7 @@ export function Field() {
           const g = (resolved ? BR_I : RAMP_I)[lv];
           if (g < 0) continue;
           let tint = inDark ? GG_OF(lv) : TINT_OF[lv];
-          let alpha = inDark ? 0.75 : 0.6 + 0.4 * u;
+          const alpha = inDark ? 0.8 : 0.72 + 0.28 * u;
           if (k > 0.01) {
             const dx = x * CW - mx,
               dy = py - my,
@@ -325,7 +344,7 @@ export function Field() {
         if (row < 1 || row >= rows - 1) continue;
         const inDark =
           row * CH > darkTop + 12 && row * CH < darkBot - 12;
-        ctx.globalAlpha = 0.95;
+        ctx.globalAlpha = 1;
         ctx.drawImage(
           sheet,
           HEAD_I * CW * dpr,
@@ -337,10 +356,10 @@ export function Field() {
           CW,
           CH,
         );
-        for (let j = 1; j <= 9; j++) {
+        for (let j = 1; j <= 14; j++) {
           const rr = row - j;
           if (rr < 1) break;
-          ctx.globalAlpha = (1 - j / 10) * 0.8;
+          ctx.globalAlpha = (1 - j / 15) * 0.9;
           ctx.drawImage(
             sheet,
             TRAIL_I * CW * dpr,
@@ -463,12 +482,13 @@ export function Field() {
 
   return (
     <div className="field-layer" aria-hidden="true">
-      <canvas ref={canvasRef} className="field-canvas" />
+      {/* аврора ПЕРВАЯ в DOM — под глифами canvas: светит между lane поля */}
       <div className="aurora">
         <i className="aurora__a" />
         <i className="aurora__b" />
         <i className="aurora__c" />
       </div>
+      <canvas ref={canvasRef} className="field-canvas" />
     </div>
   );
 }

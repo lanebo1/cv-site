@@ -28,27 +28,37 @@ export function Nav() {
 
   return (
     <header className="site-nav">
-      <div className="container flex h-14 items-center gap-6">
+      {/* узкие экраны: пункты переносятся во вторую строку (ничего не режется),
+          от lg — одна строка h-14 */}
+      <div className="container flex min-h-14 flex-wrap items-center gap-x-5 gap-y-1 py-1.5 lg:h-14 lg:flex-nowrap lg:gap-6 lg:py-0">
         <a
           href="#top"
           aria-label="Наверх, к началу страницы"
-          className="flex items-center gap-2 whitespace-nowrap font-display text-md font-bold uppercase"
+          className="order-1 flex items-center gap-2 whitespace-nowrap font-display text-md font-bold uppercase"
         >
           <span aria-hidden="true" className="font-outlier text-accent">
             ┊
           </span>
           {CONTACTS.name.split(" ")[0]}
         </a>
+        <a
+          href={CONTACTS.resume}
+          download
+          className="btn-key order-2 ml-auto h-9 min-h-9 px-3 text-sm lg:order-3 lg:ml-0"
+        >
+          <IconDownload className="size-3.5 shrink-0" />
+          PDF
+        </a>
         <nav
           aria-label="Разделы сайта"
-          className="scrollbar-none flex flex-1 items-center gap-1 overflow-x-auto"
+          className="order-3 flex w-full min-w-0 basis-full flex-wrap items-center gap-x-1 gap-y-0.5 pt-1 lg:order-2 lg:w-auto lg:basis-auto lg:flex-1 lg:flex-nowrap lg:pt-0"
         >
           {NAV_SECTIONS.map((s) => (
             <a
               key={s.id}
               href={`#${s.id}`}
               aria-current={active === s.id ? "true" : undefined}
-              className={`whitespace-nowrap border-b-2 px-2 py-1 font-display text-md uppercase transition-colors ${
+              className={`whitespace-nowrap border-b-2 px-1.5 py-1 font-display text-md uppercase transition-colors ${
                 active === s.id
                   ? "border-accent text-accent"
                   : "border-transparent text-muted hover:text-ink"
@@ -58,14 +68,6 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <a
-          href={CONTACTS.resume}
-          download
-          className="btn-key h-9 min-h-9 px-3 text-sm"
-        >
-          <IconDownload className="size-3.5 shrink-0" />
-          PDF
-        </a>
       </div>
     </header>
   );
