@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Onest, Oswald } from "next/font/google";
+import { Onest, Oswald } from "next/font/google";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -12,12 +12,7 @@ const oswald = Oswald({
 const onest = Onest({
   variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -28,27 +23,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fffdf9",
+  themeColor: "#b1aba2",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${oswald.variable} ${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${oswald.variable} ${onest.variable} h-full antialiased`}
     >
-      <body
-        className="min-h-full flex flex-col"
-        style={
-          {
-            "--font-display-stack": `var(--font-oswald), var(--font-onest), system-ui, sans-serif`,
-            "--font-sans-stack": `var(--font-onest), system-ui, -apple-system, 'Segoe UI', sans-serif`,
-            "--font-mono-stack": `var(--font-jetbrains), ui-monospace, 'SF Mono', 'Cascadia Mono', monospace`,
-          } as React.CSSProperties
-        }
-      >
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

@@ -1,46 +1,40 @@
 import type { ReactNode } from "react";
-import { Reveal } from "./reveal";
 
 /*
- * Сцена: полноширинная секция со своим фоном и крупным заголовком.
- * index — номер сцены (Oswald, последовательность 01→04).
+ * Сцена Formwork: 3px чернильная линейка сверху, контейнер, заголовок слева.
+ * night — ночная заливка (ink band).
  */
 export function Section({
   id,
-  index,
   title,
-  dark = false,
+  lead,
+  caption,
+  night = false,
   children,
 }: {
   id: string;
-  index?: string;
   title?: string;
-  dark?: boolean;
+  lead?: ReactNode;
+  caption?: string;
+  night?: boolean;
   children: ReactNode;
 }) {
   return (
     <section
       id={id}
-      className={`relative scroll-mt-24 overflow-hidden ${
-        dark ? "scene-dark" : ""
-      }`}
+      className={`relative scroll-mt-24 ${night ? "night" : ""}`}
     >
-      <div className="relative mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
-        {(index || title) && (
-          <Reveal>
-            <header className="mb-12 flex items-baseline gap-4 sm:mb-16 sm:gap-6">
-              {index && (
-                <span className="font-display text-2xl font-bold text-flame sm:text-4xl">
-                  {index}
-                </span>
-              )}
-              {title && (
-                <h2 className="font-display text-4xl font-bold tracking-tight uppercase sm:text-6xl">
-                  {title}
-                </h2>
-              )}
-            </header>
-          </Reveal>
+      <div
+        className={`container border-t-[3px] pt-12 pb-16 sm:pt-16 sm:pb-24 ${
+          night ? "border-night-ink" : "border-ink"
+        }`}
+      >
+        {(title || caption) && (
+          <header className="mb-10 grid items-baseline gap-x-8 gap-y-4 sm:mb-16 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+            {title && <h2>{title}</h2>}
+            {caption && <p className="text-sm text-muted">{caption}</p>}
+            {lead && <p className="max-w-[52ch] text-ink-2 md:justify-self-end">{lead}</p>}
+          </header>
         )}
         {children}
       </div>

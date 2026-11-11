@@ -1,498 +1,222 @@
+/* Hallmark · shape: Type-led Poster hero, site-board rows · genre: editorial · theme: Formwork (deal 1/3, seed personal-devops-infrastructure-engineer-1880·7604ad23·2026-11-09·r0) · redesign: full
+ * hero: Poster (type-led, anchored low and left) · nav: ink slab, edge-aligned · footer: night-pour statement close · imagery: none · signature: the two employers cast at display scale, the prod record as a site board
+ * formwork: cast · body Onest (Archivo ships no Cyrillic; same grotesque voice, no mono on the page) · copy: verbatim · axes: mid/display-condensed/warm · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, a CV page could be any engineer's; fixed by casting the two real employers at display scale and giving achievements and contacts the night pour */
+/* Hallmark · dropped onMouseMove/onLeave (magnetic hover, tilt-card glow) · formwork keeps still, the handlers carried decoration only */
+/* Hallmark · dropped onViewportEnter (experience active marker, scroll-scrubbed line) · formwork keeps still */
+/* Hallmark · dropped typewriter roles and blinking caret · formwork keeps still, the roles are set as a caps line */
+/* Hallmark · dropped count-up counters, sparks, badge shimmer, highlight sweep, marquee · formwork keeps still; figures and skills all remain, static */
+/* Hallmark · dropped scroll cue and hero stat line · 66 names the cue; the stats live once, in the figures */
+/* Hallmark · dropped #experience, {stat.value} · the scroll cue is named by 66 and the stat prop died with the Counter; the anchor lives in the nav and the figure itself stays, static */
+/* Hallmark · dropped onViewportEnter={() => setActive(i)} · formwork keeps still; the section reads as a board, no active marker */
+/* Hallmark · dropped "финальный кадр" · 54 names the eyebrow */
+/* Hallmark · dropped "next.js · tailwind · framer-motion" · 63 names the middle dots */
+/* Hallmark · reworded "{program} · {course} · {gpa}" joins to commas · 63 names the dots; the words are the content's own */
 @import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css" layer(base);
 
-/* --- Дизайн-система WHITE + FLAME --- */
+/* --- Формворк: дисплей — капс, бетон не движется --- */
 
-:root {
-  --background: #fffdf9;
-  --surface: #ffffff;
-  --warm: #fff8f0;
-  --foreground: #1c1917;
-  --muted: #78716c;
-  --faint: #a8a29e;
-  --line: #f0e8dd;
-  --accent: #f97316;
-  --accent-2: #fbbf24;
-  --accent-3: #fb923c;
-  --accent-dim: rgba(249, 115, 22, 0.1);
-  --ink: #1c1917;
-  --paper: #fffdf9;
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-warm: var(--warm);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-faint: var(--faint);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
-  --color-accent-3: var(--accent-3);
-  --color-accent-dim: var(--accent-dim);
-  --font-sans: var(--font-sans-stack);
-  --font-mono: var(--font-mono-stack);
-  --font-display: var(--font-display-stack);
+html,
+body {
+  overflow-x: clip;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans-stack);
+/* --- Зерно бетона: одна текстура на всю бумагу, multiply --- */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.4 0 0 0 0 0.38 0 0 0 0 0.34 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-::selection {
-  background: var(--accent);
-  color: #fff;
+/* --- Night pour: чернильная полоса, зерно screened --- */
+
+.night {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-night);
+  color: var(--color-night-ink);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* --- Hero: живое пламя (размытые плазменные пятна, CSS-дрейф) --- */
-
-.flame-blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(120px);
-  will-change: transform;
-}
-
-@keyframes flame-drift-a {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(6rem, 3rem) scale(1.12);
-  }
-  100% {
-    transform: translate(2rem, 7rem) scale(0.95);
-  }
-}
-
-@keyframes flame-drift-b {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-5rem, 4rem) scale(1.08);
-  }
-  100% {
-    transform: translate(-8rem, 1rem) scale(0.92);
-  }
-}
-
-@keyframes flame-drift-c {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(4rem, -4rem) scale(1.15);
-  }
-  100% {
-    transform: translate(-3rem, -2rem) scale(1);
-  }
-}
-
-/* лёгкий noise-слой поверх пламени */
-.flame-noise::after {
+.night::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.4;
+  z-index: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: calc(var(--texture-opacity) * 1.4);
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* --- Градиентный текст --- */
-
-.text-flame {
-  background: linear-gradient(100deg, #f97316 10%, #fbbf24 45%, #fb923c 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* --- Кнопка с shimmer-бликом при hover --- */
-
-.btn-flame {
+.night > * {
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(120deg, #f97316, #fb923c);
-  color: #fff;
-  box-shadow: 0 4px 16px -4px rgba(249, 115, 22, 0.4);
+  z-index: 1;
+}
+
+.night :focus-visible {
+  outline-color: var(--color-night-2);
+}
+
+/* --- Пара контролов: оранжевая primary на жёсткой тени, вдавленная secondary --- */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--color-accent-deep);
   transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+    translate var(--dur-micro) var(--ease-out),
+    box-shadow var(--dur-micro) var(--ease-out),
+    background-color var(--dur-micro) var(--ease-out);
 }
 
-.btn-flame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.45) 50%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  pointer-events: none;
+.btn-primary:hover {
+  background: var(--color-accent-deep);
+  color: var(--color-plate-ink);
 }
 
-.btn-flame:hover {
-  box-shadow: 0 8px 24px -6px rgba(249, 115, 22, 0.55);
-  transform: translateY(-1px);
+.btn-primary:active {
+  translate: 0 3px;
+  box-shadow: 0 0 0 var(--color-accent-deep);
 }
 
-.btn-flame:hover::before {
-  animation: btn-shimmer 0.9s ease forwards;
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
-@keyframes btn-shimmer {
-  to {
-    transform: translateX(120%);
-  }
-}
-
-/* --- Карточка: анимированная градиентная рамка при hover --- */
-
-.card-flame {
-  position: relative;
-  border: 1px solid var(--line);
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  border: 2px solid var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset 0 2px 3px color-mix(in oklab, var(--color-ink) 30%, transparent);
   transition:
-    box-shadow 0.35s ease,
-    transform 0.35s ease;
+    background-color var(--dur-micro) var(--ease-out),
+    translate var(--dur-micro) var(--ease-out);
 }
 
-.card-flame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(120deg, #f97316, #fbbf24, #fb923c, #f97316);
-  background-size: 300% 300%;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+.btn-ghost:hover {
+  background: var(--color-plate);
 }
 
-.card-flame:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px -10px rgba(249, 115, 22, 0.28);
+.btn-ghost:active {
+  translate: 0 1px;
+  box-shadow: inset 0 3px 5px color-mix(in oklab, var(--color-ink) 40%, transparent);
 }
 
-.card-flame:hover::before {
-  opacity: 1;
-  animation: border-flow 4s linear infinite;
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
-@keyframes border-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.night .btn-ghost {
+  background: color-mix(in oklab, var(--color-night-ink) 10%, transparent);
+  color: var(--color-night-ink);
+  border-color: var(--color-night-ink);
+  box-shadow: inset 0 2px 3px color-mix(in oklab, var(--color-night) 70%, transparent);
 }
 
-/* --- Чипы навыков: hover lift + цветная тень --- */
-
-.chip {
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+.night .btn-ghost:hover {
+  background: color-mix(in oklab, var(--color-night-ink) 18%, transparent);
 }
 
-.chip:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--chip-shadow, 0 4px 12px -2px rgba(249, 115, 22, 0.3));
+/* --- Ссылки: чернила, подчёркнуты, оранжевые на hover --- */
+
+.u-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  transition: color var(--dur-micro) var(--ease-out);
 }
 
-/* --- Тёмные сцены: почти-чёрные с оранжевым свечением --- */
-
-.scene-dark {
-  background:
-    radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      rgba(249, 115, 22, 0.14),
-      transparent 70%
-    ),
-    var(--ink);
-  color: var(--paper);
+.u-link:hover {
+  color: var(--color-accent-deep);
 }
 
-.scene-dark ::selection {
-  background: var(--accent-2);
-  color: var(--ink);
+.night .u-link:hover {
+  color: var(--color-night-2);
 }
 
-.glow-text {
-  color: var(--accent-2);
-  text-shadow:
-    0 0 14px rgba(251, 191, 36, 0.55),
-    0 0 42px rgba(249, 115, 22, 0.35);
-}
+/* --- Теги стека: прямоугольные отливки --- */
 
-.glow-line {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(251, 191, 36, 0.6),
-    transparent
-  );
-}
-
-/* --- particle-sparks: мелкие оранжевые точки всплывают вверх --- */
-
-.spark {
-  position: absolute;
-  bottom: -8px;
-  width: 3px;
-  height: 3px;
-  border-radius: 9999px;
-  background: #fbbf24;
-  box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.5);
-  opacity: 0;
-  animation: spark-rise linear infinite;
-}
-
-@keyframes spark-rise {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  12% {
-    opacity: 0.9;
-  }
-  70% {
-    opacity: 0.55;
-  }
-  100% {
-    transform: translateY(-70vh) scale(0.3);
-    opacity: 0;
-  }
-}
-
-/* --- Бегущая строка навыков: 2 ряда в противоположные стороны --- */
-
-.marquee {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 0.75rem;
-  padding-right: 0.75rem;
-  animation: marquee-scroll var(--marquee-speed, 60s) linear infinite;
-}
-
-.marquee-reverse .marquee-track {
-  animation-direction: reverse;
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* --- Выделение ВКР: marker-подсветка с sweep оранжевым --- */
-
-.highlight-sweep {
-  background-image: linear-gradient(
-    100deg,
-    rgba(251, 191, 36, 0.55),
-    rgba(249, 115, 22, 0.45)
-  );
-  background-repeat: no-repeat;
-  background-size: 0% 88%;
-  background-position: 0 62%;
-}
-
-/* запускается, когда ВКР попадает в кадр (класс добавляется из JS) */
-.highlight-sweep.is-sweeping {
-  animation: highlight-grow 1.6s 0.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-@keyframes highlight-grow {
-  to {
-    background-size: 100% 88%;
-  }
-}
-
-/* --- Scroll-cue: падающая линия --- */
-
-.scroll-cue-line {
-  position: relative;
-  width: 1px;
-  height: 3.5rem;
-  overflow: hidden;
-  background: rgba(28, 25, 21, 0.14);
-}
-
-.scroll-cue-line::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 40%;
-  background: linear-gradient(to bottom, transparent, var(--accent));
-  animation: cue-drop 2s ease-in-out infinite;
-}
-
-@keyframes cue-drop {
-  0% {
-    transform: translateY(-100%);
-  }
-  60%,
-  100% {
-    transform: translateY(280%);
-  }
-}
-
-/* --- Shimmer-ободок наградных бейджей --- */
-
-.badge-flame {
-  position: relative;
-}
-
-.badge-flame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    115deg,
-    rgba(249, 115, 22, 0.1),
-    rgba(251, 191, 36, 0.9),
-    rgba(249, 115, 22, 0.1)
-  );
-  background-size: 250% 250%;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: border-flow 5s linear infinite;
-  pointer-events: none;
-}
-
-/* --- Мигающий курсор печати --- */
-
-.type-caret {
+.tag {
   display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  margin-left: 0.15em;
-  vertical-align: text-bottom;
-  background: var(--accent);
-  animation: caret-blink 1.05s steps(1) infinite;
+  padding: var(--space-3xs) var(--space-xs);
+  border: 1px solid var(--color-rule);
+  background: var(--color-plate);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  line-height: 1.4;
 }
 
-@keyframes caret-blink {
-  0%,
-  55% {
-    opacity: 1;
-  }
-  56%,
-  100% {
-    opacity: 0;
-  }
+/* --- Плита: отливка с жёсткой тенью --- */
+
+.plate {
+  background: var(--color-plate);
+  border: var(--rule-bar) solid var(--color-ink);
+  box-shadow: var(--shadow-card);
 }
 
-/* --- Проекты: 3D-tilt карточка с glow под курсором --- */
+/* --- Skip link --- */
 
-.tilt-card {
-  position: relative;
-  transform-style: preserve-3d;
-  border: 1px solid var(--line);
-}
-
-/* оранжевый градиентный бордер — живёт всегда, усиливается на hover */
-.tilt-card::before {
-  content: "";
+.skip {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    120deg,
-    #f97316,
-    #fbbf24,
-    #fb923c,
-    #f97316
-  );
-  background-size: 300% 300%;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.5;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  left: var(--space-md);
+  top: calc(-1 * var(--space-3xl));
+  z-index: var(--z-toast);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  text-decoration: none;
 }
 
-/* glow-подсветка под курсором (позиция приходит из JS через --glow-x/y) */
-.tilt-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    260px circle at var(--glow-x, 50%) var(--glow-y, 50%),
-    rgba(249, 115, 22, 0.16),
-    transparent 65%
-  );
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-
-.tilt-card:hover::before {
-  opacity: 1;
-  animation: border-flow 4s linear infinite;
-}
-
-.tilt-card:hover::after {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tilt-card:hover::before {
-    animation: none;
-  }
+.skip:focus-visible {
+  top: var(--space-md);
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 /* --- Утилиты --- */
@@ -504,46 +228,16 @@ body {
   display: none;
 }
 
-/* --- prefers-reduced-motion: отключить все декоративные анимации --- */
+/* --- prefers-reduced-motion: бетон и так не движется; выключаем скролл-гладкость --- */
 
 @media (prefers-reduced-motion: reduce) {
-  .flame-blob,
-  .spark,
-  .badge-flame::before,
-  .scroll-cue-line::after,
-  .btn-flame:hover::before,
-  .card-flame:hover::before,
-  .marquee-track,
-  .type-caret {
-    animation: none !important;
+  html {
+    scroll-behavior: auto;
   }
 
-  /* без анимации бегущей строки — статичная переноска чипов */
-  .marquee-track {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .marquee-copy {
-    display: none;
-  }
-
-  /* подсветка ВКР видна сразу */
-  .highlight-sweep,
-  .highlight-sweep.is-sweeping {
-    background-size: 100% 88%;
-    animation: none !important;
-  }
-
-  .btn-flame,
-  .card-flame,
-  .chip {
-    transition: none !important;
-  }
-
-  .card-flame:hover,
-  .btn-flame:hover,
-  .chip:hover {
-    transform: none;
+  .btn-primary,
+  .btn-ghost,
+  .u-link {
+    transition: none;
   }
 }
