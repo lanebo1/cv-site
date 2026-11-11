@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, CONTACTS } from "@/lib/content";
 
-/* Чернильная плита-слэб: слово-марка слева, разделы капсом, активный — оранжевым. */
+/* Бумажная линейка с волосяной кромкой: марка слева, разделы, активный — кобальт. */
 export function Nav() {
   const [active, setActive] = useState<string>("");
 
@@ -27,7 +27,7 @@ export function Nav() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-ink text-night-ink">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-rule bg-paper/90 backdrop-blur-md">
       <div className="container flex h-14 items-center gap-6">
         <a
           href="#top"
@@ -45,10 +45,10 @@ export function Nav() {
               key={s.id}
               href={`#${s.id}`}
               aria-current={active === s.id ? "true" : undefined}
-              className={`font-display text-md uppercase whitespace-nowrap px-2 py-1 transition-colors ${
+              className={`font-display text-md uppercase whitespace-nowrap border-b-2 px-2 py-1 transition-colors ${
                 active === s.id
-                  ? "text-night-2"
-                  : "text-night-muted hover:text-night-ink"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-muted hover:text-ink"
               }`}
             >
               {s.label}
